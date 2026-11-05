@@ -1,0 +1,70 @@
+# MIYJO — prototipo funcional
+
+Plataforma web (PWA) para que madres y padres de Cusco encuentren, reserven y sigan actividades físicas
+verificadas para sus hijos. Stack: **Python 3.11+ · FastAPI · SQLAlchemy/SQLite · Jinja2 · HTML/CSS/JS sin frameworks**.
+
+## Ejecutar (2 minutos)
+```bash
+./run.sh          # Linux/Mac      (Windows: run.bat)
+```
+Abre http://localhost:8000 → botón **Demo** (arriba). Desde ahí entras con un clic como:
+familia nueva · familia con historial · proveedor · equipo MIYJO (métricas).
+**/demo/mensajes** muestra en vivo los mensajes de WhatsApp que se enviarían (códigos, confirmaciones, asistencia).
+
+Probar desde el celular (misma red Wi-Fi): `http://IP-DE-TU-PC:8000` y "Añadir a pantalla de inicio".
+
+## Qué incluye (alcance del prototipo)
+| Flujo | Dónde |
+|---|---|
+| Ingreso por celular + código (sin contraseña) | `/entrar` |
+| Consentimiento parental en lenguaje simple | `/consentimiento` |
+| Cuestionario de 5 pasos (edad, gustos, horarios, zona, presupuesto) | `/cuestionario/1..5` |
+| **3 recomendaciones explicadas** (motor de reglas, `app/recommender.py`) | `/recomendaciones/{hijo}` |
+| Clase de prueba / mensualidad, pago por Yape confirmado por el proveedor | `/actividad/{id}`, `/reservas` |
+| Panel del proveedor: confirmar pagos, asistencia, nuevas actividades | `/proveedor` |
+| **Métricas para patrocinadores** + calculadora de negocio (LTV/CAC) + CSV | `/metricas` (rol equipo) |
+
+Métricas medidas: familias, embudo, familias que repiten, prueba→mensual, minutos de actividad por niño,
+proveedores activos, tiempo hasta la primera reserva, asistencia, ingresos por comisión.
+
+## IMPORTANTE para la presentación
+1. **Los datos incluidos son FICTICIOS** (proveedores en `app/data/catalogo.json`, 30 familias de demostración).
+   El panel lo avisa y tiene el botón **«Solo datos reales»**, que muestra únicamente lo medido en el piloto.
+2. **Reemplaza el catálogo** por proveedores reales de Cusco (misma estructura JSON, pon `"demo": false`) y ejecuta:
+   ```bash
+   python -m app.seed --reset --sin-demo      # catálogo real, sin familias de ejemplo
+   MIYJO_DEMO=0 ./run.sh                      # piloto real
+   ```
+3. Con `MIYJO_DEMO=0` el código de ingreso **ya no se muestra en pantalla**: hay que conectar el envío real
+   en `app/services.py → notify()` (WhatsApp Business API, Twilio o SMS). Hoy escribe en la bandeja interna.
+4. Presenta los números de la calculadora como **supuestos**, y los del panel como **resultados del piloto**.
+
+## Variables de entorno
+`MIYJO_DEMO` (1/0) · `MIYJO_COMISION` (0.12) · `MIYJO_SOPORTE_WHATSAPP` (51987654321) ·
+`MIYJO_SECRET` · `DATABASE_URL` (por defecto SQLite en `data/`) · `PORT`.
+
+## Pruebas
+```bash
+. .venv/bin/activate && python -m pytest -q      # recomendador + flujo completo padre→proveedor→métricas
+```
+
+## Seguridad y datos de menores (ya incluido)
+Consentimiento explícito con fecha · datos mínimos del niño (nombre y edad, sin apellidos ni fecha de nacimiento) ·
+códigos de un solo uso con vencimiento, límite de intentos y de envíos · sesión firmada · cada padre solo accede
+a sus hijos y reservas · roles separados (padre / proveedor / equipo) · plantillas con escape automático.
+Pendiente antes de producción: HTTPS, protección CSRF por token, política de privacidad legal revisada,
+borrado de datos a solicitud, y copias de seguridad.
+
+## Próximos pasos sugeridos
+Editar preferencias del niño · pagos con pasarela · reseñas verificadas · lista de espera · traslados ·
+app envuelta (Capacitor) cuando haya retención · recomendador con ML cuando existan datos reales.
+
+## Estructura
+```
+app/main.py          rutas y roles          app/recommender.py   motor explicable (puntaje 0-100)
+app/services.py      reglas de negocio      app/metrics.py       métricas para patrocinadores
+app/models.py        base de datos          app/seed.py          carga de catálogo y datos demo
+app/templates/       pantallas              app/static/          CSS, JS, PWA (manifest, service worker)
+tests/               pruebas automáticas    app/data/catalogo.json  proveedores y actividades
+```
+# miyjo
