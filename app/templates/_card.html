@@ -1,0 +1,25 @@
+{# Tarjeta de actividad. Variables: r (Reco), child, best (bool) #}
+{% set a = r.activity %}{% set nxt = next_session(a) %}
+<article class="card reco {{ 'best' if best }}">
+  {% if best %}<p style="margin:0 0 .5rem"><span class="badge star">⭐ Mejor opción para {{ child.name }}</span></p>{% endif %}
+  <div class="top-row">
+    <div class="big-em" aria-hidden="true">{{ CATEGORIES[a.category].emoji }}</div>
+    <div>
+      <h3 style="font-size:1.2rem">{{ a.name }}</h3>
+      <div class="muted small">{{ a.provider.name }}</div>
+      <span class="badge ok" style="margin-top:.3rem">✔ Verificado</span>
+    </div>
+    <div class="match" aria-label="Encaja {{ r.score }} por ciento">{{ r.score }}%<small>encaja</small></div>
+  </div>
+  <div class="facts">
+    <div class="fact"><small>📅 Cuándo</small><b>{{ a.days|days }} · {{ a.start }}</b></div>
+    <div class="fact"><small>📍 Dónde</small><b>{{ a.provider.zone }}</b></div>
+    <div class="fact"><small>💰 Precio</small><b>S/ {{ a.price_month }} al mes</b></div>
+  </div>
+  <ul class="reasons">{% for reason in r.reasons[:4] %}<li>{{ reason }}</li>{% endfor %}</ul>
+  <div class="row between">
+    <div>{% if a.trial_price == 0 %}<span class="badge accent">🎁 Clase de prueba gratis</span>{% endif %}
+      {% if r.spots_left <= 3 %}<span class="badge warn">Quedan {{ r.spots_left }} cupos</span>{% endif %}</div>
+    <a class="btn" href="/actividad/{{ a.id }}?hijo={{ child.id }}">Ver detalle y reservar →</a>
+  </div>
+</article>

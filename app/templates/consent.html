@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Tu consentimiento · MIYJO{% endblock %}
+{% block content %}
+<h1>Antes de empezar</h1>
+<p class="muted">Por ley, necesitamos tu permiso para guardar datos de tu hijo. Lo explicamos en palabras simples.</p>
+{% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+<form method="post" action="/consentimiento" class="card" novalidate>
+  <h3>Qué guardamos y para qué</h3>
+  <ul class="reasons">
+    <li>El <b>nombre y la edad</b> de tu hijo, sus gustos y tu disponibilidad: solo para recomendarle actividades.</li>
+    <li>Tu <b>celular</b>: para enviarte códigos y avisos de reservas y asistencia.</li>
+    <li>No pedimos apellidos, documentos ni fotos. No vendemos tus datos.</li>
+    <li>Compartimos con el proveedor solo lo necesario para atender a tu hijo en la clase que reserves.</li>
+    <li>Puedes pedir que borremos tus datos cuando quieras escribiéndonos por WhatsApp.</li>
+  </ul>
+  <label for="nombre">Tu nombre</label>
+  <input id="nombre" name="nombre" type="text" autocomplete="name" maxlength="60" required value="{{ user.name }}">
+  <label class="choice" style="margin-top:1rem"><input type="checkbox" name="acepto" value="1" required>
+    <span>Soy madre, padre o tutor y autorizo el uso de estos datos como se explica arriba.</span></label>
+  <button class="btn block" type="submit" style="margin-top:1rem">Acepto y continuar</button>
+</form>
+{% endblock %}

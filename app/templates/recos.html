@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Recomendaciones para {{ child.name }} · MIYJO{% endblock %}
+{% block content %}
+{% if user.children|length > 1 %}
+  <form method="get" class="row" style="margin-bottom:.5rem" onchange="location=this.querySelector('select').value">
+    <label for="sel" style="margin:0">Mostrando para:</label>
+    <select id="sel" style="max-width:220px">{% for c in user.children %}<option value="/recomendaciones/{{ c.id }}" {{ 'selected' if c.id == child.id }}>{{ c.name }} ({{ c.age }} años)</option>{% endfor %}</select>
+  </form>
+{% endif %}
+{% if results %}
+  <h1>{{ results|length }} opciones ideales para {{ child.name }}</h1>
+  <p class="lead">Elegidas según lo que nos contaste. Todas con lugares verificados.</p>
+  {% for r in results %}{% set best = loop.first %}{% include "_card.html" %}{% endfor %}
+
+  {% if more %}
+  <details class="more">
+    <summary class="btn sec block">＋ Ver {{ more|length }} opciones más</summary>
+    <p class="muted small" style="margin-top:.8rem">También podrían gustarle a {{ child.name }}:</p>
+    {% for r in more %}{% set a = r.activity %}
+      <a class="mini" href="/actividad/{{ a.id }}?hijo={{ child.id }}">
+        <span class="em" aria-hidden="true">{{ CATEGORIES[a.category].emoji }}</span>
+        <span class="grow"><b>{{ a.name }}</b><span class="muted small">{{ a.days|days }} · {{ a.start }} · {{ a.provider.zone }} · S/ {{ a.price_month }}</span></span>
+        <span class="badge ok">{{ r.score }}%</span>
+      </a>
+    {% endfor %}
+    <a class="btn sec block" href="/explorar?hijo={{ child.id }}" style="margin-top:.8rem">🔎 Explorar todas las actividades</a>
+  </details>
+  {% endif %}
+
+  <div class="card" style="margin-top:1rem">
+    <h3>¿Ninguna te convence?</h3>
+    <div class="row">
+      <a class="btn sec sm" href="/cuestionario/1">Cambiar mis respuestas</a>
+      <a class="btn wa sm" href="https://wa.me/{{ SOPORTE }}?text=Necesito%20ayuda%20para%20elegir%20actividad%20para%20{{ child.name|urlencode }}" target="_blank" rel="noopener">💬 Que me ayuden a elegir</a>
+    </div>
+  </div>
+{% else %}
+  <h1>Todavía no tenemos opciones para {{ child.name }}</h1>
+  <div class="card"><p>Con los días, la zona y el presupuesto elegidos no encontramos actividades. Prueba con más días, otra zona o <b>«Cualquier zona»</b>.</p>
+    <div class="row"><a class="btn" href="/cuestionario/1">Cambiar mis respuestas</a>
+    <a class="btn sec" href="/explorar?hijo={{ child.id }}">🔎 Explorar todo</a></div></div>
+{% endif %}
+{% endblock %}

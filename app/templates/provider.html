@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Panel · {{ prov.name }}{% endblock %}
+{% block mainclass %}wide{% endblock %}
+{% block content %}
+<h1>{{ prov.name }}</h1>
+<p class="muted">{{ prov.zone }} · <span class="badge ok">✔ Verificado</span></p>
+
+<div class="kpis">
+  <div class="kpi"><b>{{ active_students }}</b><span>alumnos con cupo confirmado</span></div>
+  <div class="kpi"><b>{{ pending|length }}</b><span>pagos por confirmar</span></div>
+  <div class="kpi"><b>{{ rows|length }}</b><span>actividades publicadas</span></div>
+</div>
+
+{% if pending %}
+<h2>💰 Pagos por confirmar</h2>
+<div class="card">
+  <table>
+    {% for b in pending %}
+    <tr><td><b>{{ b.child.name }}</b> <span class="muted small">({{ b.child.age }} años)</span><br><span class="small muted">{{ b.activity.name }} · {{ 'Prueba' if b.kind == 'prueba' else 'Mensualidad' }}</span></td>
+      <td>S/ {{ b.amount }}</td>
+      <td style="text-align:right"><form method="post" action="/proveedor/reservas/{{ b.id }}/confirmar" style="margin:0"><button class="btn sm" type="submit">Confirmar pago</button></form></td></tr>
+    {% endfor %}
+  </table>
+  <p class="hint">Confirma cuando recibas el Yape o Plin. La familia recibe un aviso por WhatsApp.</p>
+</div>
+{% endif %}
+
+<h2>✅ Asistencia · {{ fmt_date(day) }}</h2>
+<form method="get" action="/proveedor" class="row" style="margin-bottom:.8rem">
+  <input type="date" name="fecha" value="{{ day.isoformat() }}" style="max-width:220px" aria-label="Fecha">
+  <button class="btn sec sm" type="submit">Ver otra fecha</button>
+</form>
+{% for s in sessions %}
+  <form method="post" action="/proveedor/asistencia" class="card">
+    <input type="hidden" name="actividad" value="{{ s.act.id }}"><input type="hidden" name="fecha" value="{{ day.isoformat() }}">
+    <h3>{{ CATEGORIES[s.act.category].emoji }} {{ s.act.name }} <span class="muted small">· {{ s.act.start }} a {{ s.act.end }}</span></h3>
+    {% if s.students %}
+      <div class="choices one">
+        {% for b in s.students %}
+          <label class="choice"><input type="checkbox" name="presente" value="{{ b.id }}" {{ 'checked' if s.marks.get(b.id) }}>
+            <span>{{ b.child.name }} <span class="muted small">({{ b.child.age }} años{{ ' · prueba' if b.kind == 'prueba' }})</span></span></label>
+        {% endfor %}
+      </div>
+      <button class="btn" type="submit">Guardar asistencia</button>
+      <p class="hint">Marca a los niños presentes. Los padres reciben un aviso por WhatsApp.</p>
+    {% else %}<p class="muted">Aún no hay alumnos confirmados en esta clase.</p>{% endif %}
+  </form>
+{% else %}
+  <div class="card"><p class="muted">No tienes clases programadas en esta fecha.</p></div>
+{% endfor %}
+
+<div class="row between"><h2>Mis actividades</h2><a class="btn sec sm" href="/proveedor/actividades/nueva">+ Nueva actividad</a></div>
+<div class="card"><table>
+  <tr><th>Actividad</th><th>Horario</th><th>Precio</th><th>Ocupación</th></tr>
+  {% for r in rows %}
+  <tr><td>{{ CATEGORIES[r.act.category].emoji }} {{ r.act.name }}</td><td>{{ r.act.days|days }} {{ r.act.start }}</td>
+    <td>S/ {{ r.act.price_month }}</td><td>{{ r.taken }}/{{ r.act.capacity }}</td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

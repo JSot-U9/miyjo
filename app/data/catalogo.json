@@ -1,0 +1,1008 @@
+{
+  "demo": true,
+  "_aviso": "DATOS FICTICIOS DE EJEMPLO. Reemplazar por los proveedores reales del piloto (misma estructura) y ejecutar: python -m app.seed --reset --sin-demo",
+  "proveedores": [
+    {
+      "name": "Academia Intiwawa Fútbol",
+      "kind": "academia",
+      "zone": "San Sebastián",
+      "phone": "950000001",
+      "yape": "950000001",
+      "address": "Complejo deportivo, San Sebastián",
+      "description": "Escuela de fútbol formativo con grupos por edad y entrenadores titulados.",
+      "checks": [
+        "Entrenadores titulados con antecedentes revisados",
+        "Local con salida de emergencia y botiquín",
+        "Seguro contra accidentes vigente"
+      ],
+      "activities": [
+        {
+          "name": "Fútbol mini 4-6 años",
+          "category": "futbol",
+          "min_age": 4,
+          "max_age": 6,
+          "days": "sab",
+          "start": "08:30",
+          "end": "09:30",
+          "price_month": 60,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Principiante",
+          "safety": "Grupos de máximo 14 niños, juegos con balón liviano y 2 entrenadores."
+        },
+        {
+          "name": "Fútbol formativo 6-9 años",
+          "category": "futbol",
+          "min_age": 6,
+          "max_age": 9,
+          "days": "sab",
+          "start": "09:00",
+          "end": "10:30",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 16,
+          "level": "Principiante",
+          "safety": "Máximo 16 niños por grupo, 2 entrenadores. Canchas con grass sintético."
+        },
+        {
+          "name": "Fútbol formativo 10-13 años",
+          "category": "futbol",
+          "min_age": 10,
+          "max_age": 13,
+          "days": "mar,jue",
+          "start": "16:30",
+          "end": "18:00",
+          "price_month": 90,
+          "trial_price": 0,
+          "capacity": 18,
+          "level": "Intermedio",
+          "safety": "Calentamiento dirigido y control de hidratación en cada clase."
+        },
+        {
+          "name": "Fútbol juvenil 14-17 años",
+          "category": "futbol",
+          "min_age": 14,
+          "max_age": 17,
+          "days": "lun,mie",
+          "start": "18:30",
+          "end": "20:00",
+          "price_month": 90,
+          "trial_price": 0,
+          "capacity": 20,
+          "level": "Intermedio",
+          "safety": "Canchas iluminadas y botiquín en el campo."
+        }
+      ]
+    },
+    {
+      "name": "Fútbol Santiago Pumas",
+      "kind": "escuela",
+      "zone": "Santiago",
+      "phone": "950000002",
+      "yape": "950000002",
+      "address": "Losa deportiva, Santiago",
+      "description": "Escuela barrial de fútbol con precios accesibles para toda la familia.",
+      "checks": [
+        "Entrenadores titulados con antecedentes revisados",
+        "Local con salida de emergencia y botiquín",
+        "Seguro contra accidentes vigente"
+      ],
+      "activities": [
+        {
+          "name": "Fútbol escolar 8-12 años",
+          "category": "futbol",
+          "min_age": 8,
+          "max_age": 12,
+          "days": "lun,mie,vie",
+          "start": "17:00",
+          "end": "18:15",
+          "price_month": 60,
+          "trial_price": 0,
+          "capacity": 22,
+          "level": "Todos los niveles",
+          "safety": "Entrenadores por edad y control de asistencia en cada clase."
+        },
+        {
+          "name": "Fútbol infantil 4-7 años",
+          "category": "futbol",
+          "min_age": 4,
+          "max_age": 7,
+          "days": "sab",
+          "start": "08:00",
+          "end": "09:00",
+          "price_month": 50,
+          "trial_price": 0,
+          "capacity": 16,
+          "level": "Principiante",
+          "safety": "Clase corta, con juegos y un adulto por cada 6 niños."
+        },
+        {
+          "name": "Fútbol mini entre semana",
+          "category": "futbol",
+          "min_age": 4,
+          "max_age": 7,
+          "days": "mar,jue",
+          "start": "16:00",
+          "end": "17:00",
+          "price_month": 55,
+          "trial_price": 0,
+          "capacity": 16,
+          "level": "Principiante",
+          "safety": "Clase corta, balones livianos y un adulto por cada 6 niños."
+        },
+        {
+          "name": "Fútbol juvenil de sábado",
+          "category": "futbol",
+          "min_age": 13,
+          "max_age": 17,
+          "days": "sab",
+          "start": "16:00",
+          "end": "17:30",
+          "price_month": 60,
+          "trial_price": 0,
+          "capacity": 22,
+          "level": "Todos los niveles",
+          "safety": "Entrenadores por edad y canchas con iluminación."
+        }
+      ]
+    },
+    {
+      "name": "Natación Killa Aqua",
+      "kind": "escuela",
+      "zone": "Wanchaq",
+      "phone": "950000003",
+      "yape": "950000003",
+      "address": "Piscina temperada, Wanchaq",
+      "description": "Natación para niños con instructores certificados y salvavidas permanente.",
+      "checks": [
+        "Instructores con certificación de primeros auxilios",
+        "Salvavidas presente en todas las clases",
+        "Piscina con control sanitario al día"
+      ],
+      "activities": [
+        {
+          "name": "Natación inicial",
+          "category": "natacion",
+          "min_age": 4,
+          "max_age": 8,
+          "days": "lun,mie,vie",
+          "start": "16:00",
+          "end": "17:00",
+          "price_month": 140,
+          "trial_price": 20,
+          "capacity": 8,
+          "level": "Principiante",
+          "safety": "Máximo 4 niños por instructor. Piscina de poca profundidad."
+        },
+        {
+          "name": "Natación avanzada",
+          "category": "natacion",
+          "min_age": 9,
+          "max_age": 15,
+          "days": "mar,jue",
+          "start": "17:30",
+          "end": "18:30",
+          "price_month": 150,
+          "trial_price": 20,
+          "capacity": 10,
+          "level": "Intermedio",
+          "safety": "Grupos reducidos y evaluación de nivel en la primera clase."
+        },
+        {
+          "name": "Natación de sábado",
+          "category": "natacion",
+          "min_age": 5,
+          "max_age": 12,
+          "days": "sab",
+          "start": "10:00",
+          "end": "11:00",
+          "price_month": 130,
+          "trial_price": 20,
+          "capacity": 10,
+          "level": "Todos los niveles",
+          "safety": "Un instructor por cada 5 niños."
+        }
+      ]
+    },
+    {
+      "name": "Natación Hatun Pool",
+      "kind": "escuela",
+      "zone": "San Sebastián",
+      "phone": "950000004",
+      "yape": "950000004",
+      "address": "Piscina cubierta, San Sebastián",
+      "description": "Piscina cubierta con clases por nivel, desde los 3 años.",
+      "checks": [
+        "Instructores con certificación de primeros auxilios",
+        "Salvavidas presente en todas las clases",
+        "Piscina con control sanitario al día"
+      ],
+      "activities": [
+        {
+          "name": "Natación para los más pequeños",
+          "category": "natacion",
+          "min_age": 3,
+          "max_age": 6,
+          "days": "sab",
+          "start": "08:00",
+          "end": "08:45",
+          "price_month": 120,
+          "trial_price": 15,
+          "capacity": 8,
+          "level": "Principiante",
+          "safety": "Agua poco profunda, clases de 45 minutos y un instructor por cada 4 niños."
+        },
+        {
+          "name": "Natación escolar",
+          "category": "natacion",
+          "min_age": 6,
+          "max_age": 14,
+          "days": "mar,jue",
+          "start": "16:00",
+          "end": "17:00",
+          "price_month": 120,
+          "trial_price": 15,
+          "capacity": 12,
+          "level": "Todos los niveles",
+          "safety": "Evaluación de nivel en la primera clase y salvavidas permanente."
+        }
+      ]
+    },
+    {
+      "name": "Dojo Kuntur Karate",
+      "kind": "academia",
+      "zone": "Cusco Centro",
+      "phone": "950000005",
+      "yape": "950000005",
+      "address": "Dojo, Cusco Centro",
+      "description": "Karate infantil con enfoque en disciplina, respeto y condición física.",
+      "checks": [
+        "Instructor con grado y avales verificados",
+        "Local con tatami y salida de emergencia",
+        "Autorización firmada de los padres en cada inscripción"
+      ],
+      "activities": [
+        {
+          "name": "Karate infantil",
+          "category": "karate",
+          "min_age": 5,
+          "max_age": 11,
+          "days": "lun,mie",
+          "start": "17:30",
+          "end": "18:30",
+          "price_month": 80,
+          "trial_price": 0,
+          "capacity": 15,
+          "level": "Todos los niveles",
+          "safety": "Sin contacto pleno. Protecciones incluidas en la mensualidad."
+        },
+        {
+          "name": "Karate juvenil",
+          "category": "karate",
+          "min_age": 12,
+          "max_age": 17,
+          "days": "mar,jue",
+          "start": "19:00",
+          "end": "20:15",
+          "price_month": 90,
+          "trial_price": 0,
+          "capacity": 15,
+          "level": "Intermedio",
+          "safety": "Grupos por cinturón y supervisión permanente del sensei."
+        }
+      ]
+    },
+    {
+      "name": "Taekwondo Apu Champions",
+      "kind": "academia",
+      "zone": "Santiago",
+      "phone": "950000006",
+      "yape": "950000006",
+      "address": "Gimnasio, Santiago",
+      "description": "Taekwondo con exámenes de cinturón y torneos amistosos.",
+      "checks": [
+        "Instructor con grado y avales verificados",
+        "Local con tatami y salida de emergencia",
+        "Autorización firmada de los padres en cada inscripción"
+      ],
+      "activities": [
+        {
+          "name": "Taekwondo infantil",
+          "category": "taekwondo",
+          "min_age": 5,
+          "max_age": 10,
+          "days": "mar,jue",
+          "start": "17:00",
+          "end": "18:00",
+          "price_month": 75,
+          "trial_price": 0,
+          "capacity": 18,
+          "level": "Todos los niveles",
+          "safety": "Protectores obligatorios y combate solo con compañeros del mismo nivel."
+        },
+        {
+          "name": "Taekwondo juvenil",
+          "category": "taekwondo",
+          "min_age": 11,
+          "max_age": 17,
+          "days": "lun,mie",
+          "start": "18:30",
+          "end": "19:45",
+          "price_month": 85,
+          "trial_price": 0,
+          "capacity": 18,
+          "level": "Intermedio",
+          "safety": "Entrenador con licencia federativa."
+        },
+        {
+          "name": "Taekwondo de sábado",
+          "category": "taekwondo",
+          "min_age": 6,
+          "max_age": 17,
+          "days": "sab",
+          "start": "09:00",
+          "end": "10:15",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 20,
+          "level": "Todos los niveles",
+          "safety": "Grupos por edad y cinturón."
+        }
+      ]
+    },
+    {
+      "name": "Judo Dojo Pumacahua",
+      "kind": "academia",
+      "zone": "San Sebastián",
+      "phone": "950000007",
+      "yape": "950000007",
+      "address": "Dojo, San Sebastián",
+      "description": "Judo para desarrollar equilibrio, respeto y confianza.",
+      "checks": [
+        "Instructor con grado y avales verificados",
+        "Local con tatami y salida de emergencia",
+        "Autorización firmada de los padres en cada inscripción"
+      ],
+      "activities": [
+        {
+          "name": "Judo infantil",
+          "category": "judo",
+          "min_age": 6,
+          "max_age": 12,
+          "days": "mar,jue",
+          "start": "17:30",
+          "end": "18:30",
+          "price_month": 85,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Principiante",
+          "safety": "Tatami completo y caídas enseñadas paso a paso."
+        },
+        {
+          "name": "Judo juvenil",
+          "category": "judo",
+          "min_age": 13,
+          "max_age": 17,
+          "days": "lun,mie",
+          "start": "19:00",
+          "end": "20:15",
+          "price_month": 95,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Intermedio",
+          "safety": "Entrenamiento por peso y nivel."
+        }
+      ]
+    },
+    {
+      "name": "Danza Sumaq Ñan",
+      "kind": "academia",
+      "zone": "Cusco Centro",
+      "phone": "950000008",
+      "yape": "950000008",
+      "address": "Salón de danza, Cusco Centro",
+      "description": "Danzas andinas y modernas para niñas y niños.",
+      "checks": [
+        "Profesores con trayectoria verificada",
+        "Salón con piso adecuado y salida de emergencia",
+        "Fotos y videos solo con autorización de los padres"
+      ],
+      "activities": [
+        {
+          "name": "Danza andina",
+          "category": "danza",
+          "min_age": 5,
+          "max_age": 12,
+          "days": "sab",
+          "start": "10:00",
+          "end": "11:30",
+          "price_month": 60,
+          "trial_price": 0,
+          "capacity": 20,
+          "level": "Todos los niveles",
+          "safety": "Calzado liviano y control de asistencia al ingreso y a la salida."
+        },
+        {
+          "name": "Danza moderna",
+          "category": "danza",
+          "min_age": 8,
+          "max_age": 16,
+          "days": "mar,jue",
+          "start": "18:00",
+          "end": "19:00",
+          "price_month": 90,
+          "trial_price": 10,
+          "capacity": 18,
+          "level": "Intermedio",
+          "safety": "Entrada y salida registradas por la academia."
+        },
+        {
+          "name": "Danza urbana para adolescentes",
+          "category": "danza",
+          "min_age": 12,
+          "max_age": 17,
+          "days": "vie",
+          "start": "18:00",
+          "end": "19:30",
+          "price_month": 80,
+          "trial_price": 10,
+          "capacity": 20,
+          "level": "Todos los niveles",
+          "safety": "Grupo de edades similares y salón con espejos y ventilación."
+        }
+      ]
+    },
+    {
+      "name": "Estudio Ballet Qoyllur",
+      "kind": "academia",
+      "zone": "Wanchaq",
+      "phone": "950000009",
+      "yape": "950000009",
+      "address": "Estudio de ballet, Wanchaq",
+      "description": "Ballet clásico infantil con profesoras tituladas.",
+      "checks": [
+        "Profesores con trayectoria verificada",
+        "Salón con piso adecuado y salida de emergencia",
+        "Fotos y videos solo con autorización de los padres"
+      ],
+      "activities": [
+        {
+          "name": "Ballet inicial",
+          "category": "ballet",
+          "min_age": 4,
+          "max_age": 8,
+          "days": "sab",
+          "start": "10:00",
+          "end": "11:00",
+          "price_month": 100,
+          "trial_price": 15,
+          "capacity": 12,
+          "level": "Principiante",
+          "safety": "Máximo 12 niñas y niños, con piso especial para danza."
+        },
+        {
+          "name": "Ballet intermedio",
+          "category": "ballet",
+          "min_age": 9,
+          "max_age": 15,
+          "days": "mar,jue",
+          "start": "17:30",
+          "end": "18:30",
+          "price_month": 110,
+          "trial_price": 15,
+          "capacity": 12,
+          "level": "Intermedio",
+          "safety": "Evaluación de nivel en la primera clase."
+        },
+        {
+          "name": "Ballet inicial entre semana",
+          "category": "ballet",
+          "min_age": 4,
+          "max_age": 8,
+          "days": "mar,jue",
+          "start": "16:30",
+          "end": "17:15",
+          "price_month": 95,
+          "trial_price": 15,
+          "capacity": 12,
+          "level": "Principiante",
+          "safety": "Clases de 45 minutos, máximo 12 niños y piso especial para danza."
+        }
+      ]
+    },
+    {
+      "name": "Basket Cusqueño Kids",
+      "kind": "escuela",
+      "zone": "Wanchaq",
+      "phone": "950000010",
+      "yape": "950000010",
+      "address": "Coliseo deportivo, Wanchaq",
+      "description": "Escuela de básquet y vóley con torneos internos entre colegios.",
+      "checks": [
+        "Entrenadores titulados con antecedentes revisados",
+        "Local con salida de emergencia y botiquín",
+        "Seguro contra accidentes vigente"
+      ],
+      "activities": [
+        {
+          "name": "Básquet mini 5-8 años",
+          "category": "basquet",
+          "min_age": 5,
+          "max_age": 8,
+          "days": "sab",
+          "start": "09:00",
+          "end": "10:00",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 16,
+          "level": "Principiante",
+          "safety": "Aros bajos y balones livianos."
+        },
+        {
+          "name": "Básquet escolar",
+          "category": "basquet",
+          "min_age": 8,
+          "max_age": 14,
+          "days": "lun,mie,vie",
+          "start": "17:00",
+          "end": "18:30",
+          "price_month": 100,
+          "trial_price": 0,
+          "capacity": 20,
+          "level": "Todos los niveles",
+          "safety": "Aros y tableros revisados semanalmente."
+        },
+        {
+          "name": "Vóley infantil",
+          "category": "voley",
+          "min_age": 8,
+          "max_age": 14,
+          "days": "sab",
+          "start": "08:30",
+          "end": "10:00",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 18,
+          "level": "Principiante",
+          "safety": "Rodilleras disponibles en el local."
+        },
+        {
+          "name": "Vóley juvenil",
+          "category": "voley",
+          "min_age": 13,
+          "max_age": 17,
+          "days": "mar,jue",
+          "start": "18:30",
+          "end": "20:00",
+          "price_month": 80,
+          "trial_price": 0,
+          "capacity": 18,
+          "level": "Intermedio",
+          "safety": "Coliseo con salida de emergencia y botiquín."
+        },
+        {
+          "name": "Básquet juvenil de sábado",
+          "category": "basquet",
+          "min_age": 14,
+          "max_age": 17,
+          "days": "sab",
+          "start": "10:30",
+          "end": "12:00",
+          "price_month": 90,
+          "trial_price": 0,
+          "capacity": 20,
+          "level": "Intermedio",
+          "safety": "Coliseo con salida de emergencia y botiquín."
+        }
+      ]
+    },
+    {
+      "name": "Gimnasia Tika",
+      "kind": "entrenador",
+      "zone": "San Jerónimo",
+      "phone": "950000011",
+      "yape": "950000011",
+      "address": "Gimnasio, San Jerónimo",
+      "description": "Gimnasia artística y acrobacia para los más pequeños.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Gimnasia artística",
+          "category": "gimnasia",
+          "min_age": 4,
+          "max_age": 10,
+          "days": "mar,jue",
+          "start": "16:00",
+          "end": "17:00",
+          "price_month": 110,
+          "trial_price": 15,
+          "capacity": 10,
+          "level": "Principiante",
+          "safety": "Supervisión directa en cada aparato y colchonetas de seguridad."
+        },
+        {
+          "name": "Gimnasia para mayores",
+          "category": "gimnasia",
+          "min_age": 11,
+          "max_age": 16,
+          "days": "lun,mie",
+          "start": "17:00",
+          "end": "18:15",
+          "price_month": 120,
+          "trial_price": 15,
+          "capacity": 10,
+          "level": "Intermedio",
+          "safety": "Máximo 10 por grupo, con control de ejercicios por nivel."
+        },
+        {
+          "name": "Acrobacia de sábado",
+          "category": "gimnasia",
+          "min_age": 6,
+          "max_age": 12,
+          "days": "sab",
+          "start": "09:30",
+          "end": "10:45",
+          "price_month": 100,
+          "trial_price": 15,
+          "capacity": 12,
+          "level": "Todos los niveles",
+          "safety": "Colchonetas de seguridad y calentamiento guiado."
+        }
+      ]
+    },
+    {
+      "name": "Atletismo Pachakuti Runners",
+      "kind": "entrenador",
+      "zone": "Santiago",
+      "phone": "950000012",
+      "yape": "950000012",
+      "address": "Pista de atletismo, Santiago",
+      "description": "Iniciación al atletismo: carreras, saltos y coordinación.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Atletismo escolar",
+          "category": "atletismo",
+          "min_age": 7,
+          "max_age": 15,
+          "days": "sab,dom",
+          "start": "07:30",
+          "end": "09:00",
+          "price_month": 50,
+          "trial_price": 0,
+          "capacity": 25,
+          "level": "Todos los niveles",
+          "safety": "Grupos por edad y calentamiento guiado antes de cada sesión."
+        },
+        {
+          "name": "Atletismo entre semana",
+          "category": "atletismo",
+          "min_age": 8,
+          "max_age": 17,
+          "days": "mar,jue",
+          "start": "17:00",
+          "end": "18:15",
+          "price_month": 60,
+          "trial_price": 0,
+          "capacity": 20,
+          "level": "Todos los niveles",
+          "safety": "Control de hidratación y botiquín en cada sesión."
+        }
+      ]
+    },
+    {
+      "name": "Skate Qosqo Park Escuela",
+      "kind": "escuela",
+      "zone": "San Sebastián",
+      "phone": "950000013",
+      "yape": "950000013",
+      "address": "Skatepark, San Sebastián",
+      "description": "Escuela de skate con equipo de protección obligatorio.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Skate para principiantes",
+          "category": "skate",
+          "min_age": 8,
+          "max_age": 16,
+          "days": "mie,vie",
+          "start": "16:30",
+          "end": "18:00",
+          "price_month": 85,
+          "trial_price": 0,
+          "capacity": 12,
+          "level": "Principiante",
+          "safety": "Sin casco ni protecciones no se participa. Se alquila equipo en el local."
+        }
+      ]
+    },
+    {
+      "name": "Rueda Libre Cusco",
+      "kind": "escuela",
+      "zone": "San Jerónimo",
+      "phone": "950000014",
+      "yape": "950000014",
+      "address": "Explanada deportiva, San Jerónimo",
+      "description": "Patinaje y ciclismo seguros, con rutas cerradas al tráfico.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Patinaje sobre ruedas",
+          "category": "patinaje",
+          "min_age": 5,
+          "max_age": 10,
+          "days": "sab",
+          "start": "15:00",
+          "end": "16:00",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Principiante",
+          "safety": "Casco, rodilleras y coderas obligatorios (alquiler disponible)."
+        },
+        {
+          "name": "Ciclismo infantil",
+          "category": "ciclismo",
+          "min_age": 8,
+          "max_age": 14,
+          "days": "sab,dom",
+          "start": "08:00",
+          "end": "09:30",
+          "price_month": 80,
+          "trial_price": 0,
+          "capacity": 12,
+          "level": "Todos los niveles",
+          "safety": "Rutas cerradas al tráfico, casco obligatorio y un guía cada 6 niños."
+        }
+      ]
+    },
+    {
+      "name": "Tenis Wayra Club",
+      "kind": "academia",
+      "zone": "Wanchaq",
+      "phone": "950000015",
+      "yape": "950000015",
+      "address": "Canchas, Wanchaq",
+      "description": "Tenis y tenis de mesa para niños y adolescentes.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Tenis infantil",
+          "category": "tenis",
+          "min_age": 6,
+          "max_age": 12,
+          "days": "sab",
+          "start": "09:00",
+          "end": "10:00",
+          "price_month": 120,
+          "trial_price": 20,
+          "capacity": 10,
+          "level": "Principiante",
+          "safety": "Raquetas livianas y un entrenador cada 5 niños."
+        },
+        {
+          "name": "Tenis juvenil",
+          "category": "tenis",
+          "min_age": 13,
+          "max_age": 17,
+          "days": "mar,jue",
+          "start": "18:00",
+          "end": "19:00",
+          "price_month": 130,
+          "trial_price": 20,
+          "capacity": 10,
+          "level": "Intermedio",
+          "safety": "Entrenador con licencia."
+        },
+        {
+          "name": "Tenis de mesa",
+          "category": "tenis_mesa",
+          "min_age": 7,
+          "max_age": 17,
+          "days": "lun,mie",
+          "start": "17:00",
+          "end": "18:00",
+          "price_month": 60,
+          "trial_price": 0,
+          "capacity": 16,
+          "level": "Todos los niveles",
+          "safety": "Salón techado con piso antideslizante."
+        },
+        {
+          "name": "Tenis juvenil de sábado",
+          "category": "tenis",
+          "min_age": 13,
+          "max_age": 17,
+          "days": "sab",
+          "start": "10:00",
+          "end": "11:00",
+          "price_month": 130,
+          "trial_price": 20,
+          "capacity": 10,
+          "level": "Todos los niveles",
+          "safety": "Entrenador con licencia y máximo 5 alumnos por cancha."
+        }
+      ]
+    },
+    {
+      "name": "Yoga Kids Sinchi",
+      "kind": "entrenador",
+      "zone": "Cusco Centro",
+      "phone": "950000016",
+      "yape": "950000016",
+      "address": "Estudio de yoga, Cusco Centro",
+      "description": "Yoga y relajación para niños y adolescentes: flexibilidad, calma y concentración.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Yoga infantil",
+          "category": "yoga",
+          "min_age": 4,
+          "max_age": 9,
+          "days": "mie,sab",
+          "start": "16:00",
+          "end": "16:45",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 12,
+          "level": "Todos los niveles",
+          "safety": "Clases tranquilas de 45 minutos con colchonetas individuales."
+        },
+        {
+          "name": "Yoga para adolescentes",
+          "category": "yoga",
+          "min_age": 10,
+          "max_age": 17,
+          "days": "mar",
+          "start": "18:30",
+          "end": "19:30",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Todos los niveles",
+          "safety": "Grupo de edades similares."
+        },
+        {
+          "name": "Yoga adolescentes de sábado",
+          "category": "yoga",
+          "min_age": 10,
+          "max_age": 17,
+          "days": "sab",
+          "start": "11:00",
+          "end": "12:00",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Todos los niveles",
+          "safety": "Grupo de edades similares y colchonetas individuales."
+        }
+      ]
+    },
+    {
+      "name": "Escalada Apu Roca",
+      "kind": "escuela",
+      "zone": "San Sebastián",
+      "phone": "950000017",
+      "yape": "950000017",
+      "address": "Muro de escalada, San Sebastián",
+      "description": "Escalada deportiva en muro con arneses y guías certificados.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Escalada para niños",
+          "category": "escalada",
+          "min_age": 7,
+          "max_age": 14,
+          "days": "sab",
+          "start": "10:00",
+          "end": "11:30",
+          "price_month": 130,
+          "trial_price": 25,
+          "capacity": 8,
+          "level": "Principiante",
+          "safety": "Arnés y casco incluidos, un guía por cada 4 niños y muros con colchón."
+        },
+        {
+          "name": "Escalada juvenil",
+          "category": "escalada",
+          "min_age": 15,
+          "max_age": 17,
+          "days": "jue",
+          "start": "18:30",
+          "end": "20:00",
+          "price_month": 140,
+          "trial_price": 25,
+          "capacity": 8,
+          "level": "Intermedio",
+          "safety": "Guías certificados y revisión de equipo antes de cada clase."
+        }
+      ]
+    },
+    {
+      "name": "Multideporte Pequeños Gigantes",
+      "kind": "escuela",
+      "zone": "Cusco Centro",
+      "phone": "950000018",
+      "yape": "950000018",
+      "address": "Salón deportivo, Cusco Centro",
+      "description": "Juegos y movimiento para los más pequeños: correr, saltar, lanzar y trabajar en equipo.",
+      "checks": [
+        "Entrenador con licencia o título verificado",
+        "Local con salida de emergencia y botiquín",
+        "Control de entrada y salida de cada niño"
+      ],
+      "activities": [
+        {
+          "name": "Multideporte 3-6 años",
+          "category": "multideporte",
+          "min_age": 3,
+          "max_age": 6,
+          "days": "sab",
+          "start": "09:00",
+          "end": "10:00",
+          "price_month": 70,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Principiante",
+          "safety": "Un adulto por cada 5 niños y juegos adaptados a su edad."
+        },
+        {
+          "name": "Multideporte entre semana",
+          "category": "multideporte",
+          "min_age": 3,
+          "max_age": 6,
+          "days": "mar,jue",
+          "start": "16:00",
+          "end": "17:00",
+          "price_month": 75,
+          "trial_price": 0,
+          "capacity": 14,
+          "level": "Principiante",
+          "safety": "Material blando y salón con piso de goma."
+        },
+        {
+          "name": "Multideporte 6-9 años",
+          "category": "multideporte",
+          "min_age": 6,
+          "max_age": 9,
+          "days": "lun,mie",
+          "start": "16:00",
+          "end": "17:00",
+          "price_month": 75,
+          "trial_price": 0,
+          "capacity": 16,
+          "level": "Todos los niveles",
+          "safety": "Rotación de deportes cada semana y entrenadores por edad."
+        }
+      ]
+    }
+  ]
+}

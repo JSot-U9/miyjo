@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Mensajes · MIYJO demo{% endblock %}
+{% block head %}<meta http-equiv="refresh" content="8">{% endblock %}
+{% block content %}
+<h1>Bandeja de mensajes (demo)</h1>
+<p class="muted small">Se actualiza sola cada 8 segundos. En el piloto real estos mensajes salen por WhatsApp.</p>
+<div class="chat">
+  {% for m in msgs %}
+    <div class="bubble"><small>Para {{ m.phone[:3] }} {{ m.phone[3:6] }} {{ m.phone[6:] }} · {{ m.created_at.strftime('%d/%m %H:%M') }}</small>{{ m.body }}</div>
+  {% else %}<p class="muted">Todavía no hay mensajes.</p>{% endfor %}
+</div>
+{% endblock %}

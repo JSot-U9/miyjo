@@ -13,12 +13,23 @@ familia nueva · familia con historial · proveedor · equipo MIYJO (métricas).
 
 Probar desde el celular (misma red Wi-Fi): `http://IP-DE-TU-PC:8000` y "Añadir a pantalla de inicio".
 
+## Novedades de esta versión
+- **Más opciones para la familia:** catálogo de 18 proveedores y 51 actividades en 19 deportes (nuevos: taekwondo, judo, ballet,
+  tenis, tenis de mesa, patinaje, ciclismo, escalada, yoga y multideporte), con horarios para todas las edades de 3 a 17 años.
+  Cada padre ve **3 opciones** con la razón de cada una, un botón **«Ver más opciones»** (siguientes 6) y la pantalla
+  **Explorar** con filtros por deporte, zona y día. En el cuestionario existe «No sé, muéstrame variedad».
+- **Interfaz más clara y con alto contraste:** paleta con contraste mínimo 7:1 en texto (verificado por `tests/test_contrast.py`),
+  barra inferior con 5 secciones (Inicio, Sugeridas, Explorar, Reservas, Ayuda), selección con casillas visibles (no solo color),
+  indicador de pasos con nombre, «Mejor opción» destacada, botón **A+** para cambiar el tamaño de letra.
+- **Si ya tenías datos de la versión anterior**, el catálogo nuevo se carga con: `python -m app.seed --reset`.
+
 ## Qué incluye (alcance del prototipo)
 | Flujo | Dónde |
 |---|---|
 | Ingreso por celular + código (sin contraseña) | `/entrar` |
 | Consentimiento parental en lenguaje simple | `/consentimiento` |
 | Cuestionario de 5 pasos (edad, gustos, horarios, zona, presupuesto) | `/cuestionario/1..5` |
+| Catálogo completo con filtros | `/explorar` |
 | **3 recomendaciones explicadas** (motor de reglas, `app/recommender.py`) | `/recomendaciones/{hijo}` |
 | Clase de prueba / mensualidad, pago por Yape confirmado por el proveedor | `/actividad/{id}`, `/reservas` |
 | Panel del proveedor: confirmar pagos, asistencia, nuevas actividades | `/proveedor` |
@@ -67,4 +78,3 @@ app/models.py        base de datos          app/seed.py          carga de catál
 app/templates/       pantallas              app/static/          CSS, JS, PWA (manifest, service worker)
 tests/               pruebas automáticas    app/data/catalogo.json  proveedores y actividades
 ```
-# miyjo

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07504a">
+  <title>{% block title %}MIYJO · Actividades seguras para tus hijos{% endblock %}</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/static/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script>try{var s=localStorage.getItem("miyjo-size");if(s)document.documentElement.dataset.size=s}catch(e){}</script>
+  {% block head %}{% endblock %}
+</head>
+{% set path = request.url.path %}
+{% set tabs = user and user.role == "parent" and not hide_tabs %}
+<body class="{{ 'has-tabs' if tabs }}">
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="top {{ 'wide-top' if user and user.role != 'parent' }}"><div class="in">
+  <a class="logo" href="/">MI<span>Y</span>JO</a>
+  <nav aria-label="Principal">
+    {% if user and user.role == "provider" %}
+      <a href="/proveedor" {{ 'aria-current=page' if path.startswith('/proveedor') }}>Mi panel</a>
+    {% elif user and user.role == "admin" %}
+      <a href="/metricas" {{ 'aria-current=page' if path.startswith('/metricas') }}>Métricas</a>
+    {% endif %}
+    {% if DEMO %}<a href="/demo" title="Herramientas de demostración">Demo</a>{% endif %}
+    <button type="button" id="tsz" class="tsz" aria-label="Cambiar tamaño de letra" title="Cambiar tamaño de letra">A<small>+</small></button>
+    {% if user %}<form method="post" action="/salir" style="margin:0"><button type="submit">Salir</button></form>{% endif %}
+  </nav>
+</div></header>
+<main id="contenido" class="{% block mainclass %}{% endblock %}">
+  {% for f in flash %}<div class="alert {{ f.kind }}" role="status">{{ f.msg }}</div>{% endfor %}
+  {% block content %}{% endblock %}
+</main>
+{% if tabs %}
+<nav class="tabbar" aria-label="Secciones"><div class="in">
+  <a href="/inicio" {{ 'aria-current=page' if path == '/inicio' }}><span class="ic" aria-hidden="true">🏠</span>Inicio</a>
+  <a href="{{ '/recomendaciones/' ~ user.children[0].id if user.children else '/cuestionario/1' }}"
+     {{ 'aria-current=page' if path.startswith('/recomendaciones') or path.startswith('/actividad') }}><span class="ic" aria-hidden="true">⭐</span>Sugeridas</a>
+  <a href="/explorar" {{ 'aria-current=page' if path.startswith('/explorar') }}><span class="ic" aria-hidden="true">🔎</span>Explorar</a>
+  <a href="/reservas" {{ 'aria-current=page' if path.startswith('/reservas') }}><span class="ic" aria-hidden="true">📅</span>Reservas</a>
+  <a href="https://wa.me/{{ SOPORTE }}?text=Hola%2C%20necesito%20ayuda%20con%20MIYJO" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">💬</span>Ayuda</a>
+</div></nav>
+{% elif not user or user.role == "parent" %}
+<p class="center small" style="padding-bottom:2rem"><a href="https://wa.me/{{ SOPORTE }}?text=Hola%2C%20necesito%20ayuda%20con%20MIYJO" target="_blank" rel="noopener">💬 ¿Necesitas ayuda? Escríbenos por WhatsApp</a></p>
+{% endif %}
+<script src="/static/js/app.js" defer></script>
+</body>
+</html>

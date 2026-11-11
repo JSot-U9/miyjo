@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Ingresar · MIYJO{% endblock %}
+{% block content %}
+<h1>{% if rol == "provider" %}Ingreso de proveedores{% else %}Ingresa con tu celular{% endif %}</h1>
+<p class="muted">Te enviaremos un código por WhatsApp. No necesitas crear contraseña.</p>
+{% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+<form method="post" action="/entrar" class="card" novalidate>
+  <input type="hidden" name="rol" value="{{ rol }}">
+  <label for="celular">Tu número de celular</label>
+  <input id="celular" name="celular" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="987 654 321" value="{{ phone }}" required autofocus>
+  <p class="hint">Escribe los 9 dígitos.</p>
+  <button class="btn block" type="submit" style="margin-top:1rem">Enviarme el código</button>
+</form>
+{% endblock %}

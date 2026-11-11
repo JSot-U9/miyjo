@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Nueva actividad · MIYJO{% endblock %}
+{% block content %}
+<p><a href="/proveedor">← Volver a mi panel</a></p>
+<h1>Nueva actividad</h1>
+{% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+<form method="post" action="/proveedor/actividades/nueva" class="card" novalidate>
+  <label for="nombre">Nombre de la actividad</label>
+  <input id="nombre" name="nombre" type="text" maxlength="80" value="{{ f.get('nombre', '') }}" required>
+  <label for="categoria">Tipo de deporte</label>
+  <select id="categoria" name="categoria">{% for k, c in CATEGORIES.items() %}<option value="{{ k }}" {{ 'selected' if f.get('categoria') == k }}>{{ c.emoji }} {{ c.label }}</option>{% endfor %}</select>
+  <label id="d-l">Días</label>
+  <div class="choices chips" aria-labelledby="d-l">{% for code, lab in DAYS %}<label class="choice"><input type="checkbox" name="dias" value="{{ code }}"><span>{{ lab }}</span></label>{% endfor %}</div>
+  <div class="grid2">
+    <div><label for="inicio">Hora de inicio</label><input id="inicio" name="inicio" type="time" value="{{ f.get('inicio', '16:00') }}" required></div>
+    <div><label for="fin">Hora de fin</label><input id="fin" name="fin" type="time" value="{{ f.get('fin', '17:00') }}" required></div>
+    <div><label for="edad_min">Edad mínima</label><input id="edad_min" name="edad_min" type="number" min="3" max="17" value="{{ f.get('edad_min', '6') }}" required></div>
+    <div><label for="edad_max">Edad máxima</label><input id="edad_max" name="edad_max" type="number" min="3" max="17" value="{{ f.get('edad_max', '12') }}" required></div>
+    <div><label for="precio">Precio mensual (S/)</label><input id="precio" name="precio" type="number" min="0" value="{{ f.get('precio', '80') }}" required></div>
+    <div><label for="prueba">Clase de prueba (S/, 0 = gratis)</label><input id="prueba" name="prueba" type="number" min="0" value="{{ f.get('prueba', '0') }}" required></div>
+    <div><label for="cupos">Cupos</label><input id="cupos" name="cupos" type="number" min="1" max="100" value="{{ f.get('cupos', '12') }}" required></div>
+    <div><label for="nivel">Nivel</label><input id="nivel" name="nivel" type="text" maxlength="30" value="{{ f.get('nivel', 'Todos los niveles') }}"></div>
+  </div>
+  <label for="seguridad">Condiciones de seguridad (lo verá el padre)</label>
+  <textarea id="seguridad" name="seguridad" rows="3" maxlength="300">{{ f.get('seguridad', '') }}</textarea>
+  <button class="btn block" type="submit" style="margin-top:1rem">Publicar actividad</button>
+</form>
+{% endblock %}

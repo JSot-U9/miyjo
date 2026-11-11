@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Inicio · MIYJO{% endblock %}
+{% block content %}
+<h1>Hola, {{ user.name.split()[0] if user.name else 'bienvenido/a' }} 👋</h1>
+{% for c in user.children %}
+  {% set active = c.bookings|selectattr('status', 'ne', 'cancelada')|list %}
+  {% set confirmed = active|selectattr('status', 'eq', 'confirmada')|list %}
+  {% set pending = active|selectattr('status', 'eq', 'pendiente')|list %}
+  <div class="card {{ 'next' if loop.first }}">
+    <div class="row between">
+      <div><h2 style="margin:0">{{ c.name }}</h2>
+        <span class="muted small">{{ c.age }} años · {% if c.interests %}{% for i in c.interests %}{{ CATEGORIES[i].label }}{{ ', ' if not loop.last }}{% endfor %}{% else %}Variedad{% endif %}</span></div>
+      <span class="badge {{ 'ok' if confirmed else 'accent' }}">{{ active|length }} reserva{{ '' if active|length == 1 else 's' }}</span>
+    </div>
+    {% if pending %}
+      <div class="alert info" style="margin-top:.8rem">⏳ Te falta pagar {{ pending|length }} reserva{{ '' if pending|length == 1 else 's' }} para confirmar{{ 'la' if pending|length == 1 else 'las' }}.</div>
+    {% endif %}
+    {% set nx = namespace(item=None) %}
+    {% for b in confirmed %}{% set n = next_session(b.activity) %}{% if n and (nx.item is none or n[0] < nx.item[0][0]) %}{% set nx.item = (n, b) %}{% endif %}{% endfor %}
+    {% if nx.item %}
+      <p style="margin:.8rem 0 .2rem">📅 <b>Próxima clase:</b> {{ nx.item[0][1] }}, {{ nx.item[1].activity.start }}<br>
+        <span class="muted">{{ nx.item[1].activity.name }} · {{ nx.item[1].activity.provider.name }}</span></p>
+    {% endif %}
+    <div class="row" style="margin-top:.9rem">
+      <a class="btn" href="/recomendaciones/{{ c.id }}">⭐ Ver actividades para {{ c.name }}</a>
+      {% if active %}<a class="btn sec" href="/reservas">Mis reservas</a>{% endif %}
+    </div>
+  </div>
+{% endfor %}
+<div class="card">
+  <h3>¿Quieres ver todo lo que hay?</h3>
+  <p class="muted">Explora todas las actividades con filtros por deporte, zona y día.</p>
+  <a class="btn sec" href="/explorar">🔎 Explorar todas las actividades</a>
+</div>
+<div class="card">
+  <h3>¿Tienes otro hijo o hija?</h3>
+  <p class="muted">Responde las 5 preguntas de nuevo para recibir recomendaciones para él o ella.</p>
+  <a class="btn sec" href="/cuestionario/1">＋ Agregar otro hijo</a>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}{{ act.name }} · MIYJO{% endblock %}
+{% block content %}
+{% set cat = CATEGORIES[act.category] %}
+{% set nxt = next_session(act) %}
+<a class="back" href="/recomendaciones/{{ child.id }}">← Volver a las opciones</a>
+<div class="row" style="flex-wrap:nowrap"><span style="font-size:2.8rem" aria-hidden="true">{{ cat.emoji }}</span>
+  <div><h1 style="margin:0">{{ act.name }}</h1><div class="muted">{{ act.provider.name }} · <span class="badge ok">✔ Verificado</span></div></div></div>
+
+<div class="facts">
+  <div class="fact"><small>📅 Cuándo</small><b>{{ act.days|days }}<br>{{ act.start }} a {{ act.end }}</b></div>
+  <div class="fact"><small>📍 Dónde</small><b>{{ act.provider.zone }}</b><br><span class="small muted">{{ act.provider.address }}</span></div>
+  <div class="fact"><small>👧 Edades</small><b>{{ act.min_age }} a {{ act.max_age }} años</b><br><span class="small muted">{{ act.level }}</span></div>
+  <div class="fact"><small>👥 Cupos</small><b>{{ left }} libres</b><br><span class="small muted">de {{ act.capacity }}</span></div>
+</div>
+{% if nxt %}<p>📅 Próxima clase: <b>{{ nxt[1] }}, {{ act.start }}</b></p>{% endif %}
+
+<div class="card next" id="reservar">
+  <h2 style="margin-top:0">Reservar para {{ child.name }}</h2>
+  {% if has_monthly %}
+    <div class="alert ok">✅ {{ child.name }} ya está inscrito en esta actividad. <a href="/reservas">Ver mis reservas</a></div>
+  {% elif left <= 0 %}
+    <div class="alert error">Ya no quedan cupos. Escríbenos por WhatsApp y te avisamos si se libera uno.</div>
+  {% else %}
+    {% if not has_any %}
+    <form method="post" action="/reservar" style="margin-bottom:1rem">
+      <input type="hidden" name="hijo" value="{{ child.id }}"><input type="hidden" name="actividad" value="{{ act.id }}"><input type="hidden" name="tipo" value="prueba">
+      <button class="btn block accent" type="submit">🎁 Probar una clase — {{ 'GRATIS' if act.trial_price == 0 else 'S/ ' ~ act.trial_price }}</button>
+      <p class="hint">Sin compromiso: pruebas una clase y decides después.</p>
+    </form>
+    <p class="center muted small" style="margin:.2rem 0">— o —</p>
+    {% endif %}
+    <form method="post" action="/reservar">
+      <input type="hidden" name="hijo" value="{{ child.id }}"><input type="hidden" name="actividad" value="{{ act.id }}"><input type="hidden" name="tipo" value="mensual">
+      <button class="btn block {{ 'sec' if not has_any else '' }}" type="submit">📅 Inscribir por el mes — S/ {{ act.price_month }}</button>
+      <p class="hint">Pagas con Yape o Plin al proveedor. Puedes cancelar cuando quieras.</p>
+    </form>
+    <hr style="border:0;border-top:2px solid var(--line);margin:1rem 0">
+    <p style="margin:0 0 .3rem"><b>¿Qué pasa después de reservar?</b></p>
+    <ol class="steps3">
+      <li>Te mostramos el número de Yape para pagar (si la clase tiene costo).</li>
+      <li>El proveedor confirma tu pago.</li>
+      <li>Recibes un aviso por WhatsApp y ves la próxima clase en «Reservas».</li>
+    </ol>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">🛡️ Seguridad y confianza</h2>
+  <p>{{ act.safety }}</p>
+  <p class="small muted" style="margin-bottom:.2rem">Lo que verificamos de {{ act.provider.name }}:</p>
+  <ul class="reasons">{% for c in act.provider.checks %}<li>{{ c }}</li>{% endfor %}</ul>
+  <p class="small muted">{{ act.provider.description }}</p>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Explorar actividades · MIYJO{% endblock %}
+{% block content %}
+<h1>Explorar actividades</h1>
+<p class="lead">Todo lo disponible para {{ child.name }} ({{ child.age }} años). Las que mejor encajan aparecen primero.</p>
+<form method="get" class="card filters" action="/explorar">
+  {% if user.children|length > 1 %}
+  <div><label for="f-h">Para</label><select id="f-h" name="hijo">{% for c in user.children %}<option value="{{ c.id }}" {{ 'selected' if c.id == child.id }}>{{ c.name }}</option>{% endfor %}</select></div>
+  {% else %}<input type="hidden" name="hijo" value="{{ child.id }}">{% endif %}
+  <div><label for="f-c">Deporte</label><select id="f-c" name="cat"><option value="">Todos</option>
+    {% for k, c in CATEGORIES.items() %}<option value="{{ k }}" {{ 'selected' if f.cat == k }}>{{ c.emoji }} {{ c.label }}</option>{% endfor %}</select></div>
+  <div><label for="f-z">Zona</label><select id="f-z" name="zona"><option value="">Todas</option>
+    {% for z in ZONES %}<option value="{{ z }}" {{ 'selected' if f.zona == z }}>{{ z }}</option>{% endfor %}</select></div>
+  <div><label for="f-d">Día</label><select id="f-d" name="dia"><option value="">Cualquiera</option>
+    {% for code, lab in DAYS %}<option value="{{ code }}" {{ 'selected' if f.dia == code }}>{{ lab }}</option>{% endfor %}</select></div>
+  <button class="btn" type="submit">Filtrar</button>
+</form>
+
+<p class="muted"><b>{{ rows|length }}</b> actividad{{ '' if rows|length == 1 else 'es' }} {% if f.cat or f.zona or f.dia %}con estos filtros{% endif %}
+  {% if f.cat or f.zona or f.dia %}· <a href="/explorar?hijo={{ child.id }}">Quitar filtros</a>{% endif %}</p>
+{% for r in rows %}{% set a = r.act %}
+  <a class="mini" href="/actividad/{{ a.id }}?hijo={{ child.id }}">
+    <span class="em" aria-hidden="true">{{ CATEGORIES[a.category].emoji }}</span>
+    <span class="grow"><b>{{ a.name }}</b><span class="muted small">{{ a.provider.name }} · {{ a.provider.zone }}<br>{{ a.days|days }} · {{ a.start }} a {{ a.end }} · <b>S/ {{ a.price_month }}</b>/mes{% if a.trial_price == 0 %} · 🎁 prueba gratis{% endif %}</span></span>
+    {% if r.fit %}<span class="badge ok">{{ r.fit.score }}%</span>{% endif %}
+  </a>
+{% else %}
+  <div class="card"><p>No hay actividades con esos filtros. Prueba quitando alguno.</p><a class="btn" href="/explorar?hijo={{ child.id }}">Quitar filtros</a></div>
+{% endfor %}
+{% endblock %}

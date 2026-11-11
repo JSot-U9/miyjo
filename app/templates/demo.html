@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Demostración · MIYJO{% endblock %}
+{% block content %}
+<h1>Modo demostración</h1>
+<p class="muted">Entra con un clic como cada tipo de usuario, sin código. Solo existe mientras <code>MIYJO_DEMO=1</code>.</p>
+<div class="grid2">
+  {% for who, title, desc in [
+    ('nueva', '👨‍👩‍👧 Familia nueva', 'Recorre todo el flujo desde cero: consentimiento, cuestionario, recomendaciones y reserva.'),
+    ('familia', '🏠 Familia con historial', 'Ya tiene un hijo y reservas; ideal para mostrar “Mis reservas”.'),
+    ('proveedor', '🏫 Proveedor', 'Confirma pagos, marca asistencia y publica actividades.'),
+    ('admin', '📊 Equipo MIYJO', 'Panel de métricas y proyección para patrocinadores.')] %}
+  <form method="post" action="/demo/entrar/{{ who }}" class="card" style="margin:0">
+    <h3>{{ title }}</h3><p class="muted small">{{ desc }}</p>
+    <button class="btn block sm" type="submit">Entrar</button>
+  </form>
+  {% endfor %}
+</div>
+<div class="card" style="margin-top:1rem">
+  <h3>📱 Mensajes de WhatsApp</h3>
+  <p class="muted small">Muestra en vivo lo que recibirían padres y proveedores (códigos, confirmaciones, asistencia).</p>
+  <a class="btn sec sm" href="/demo/mensajes" target="_blank">Abrir bandeja de mensajes</a>
+</div>
+{% endblock %}

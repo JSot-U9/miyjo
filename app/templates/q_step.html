@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% set hide_tabs = true %}
+{% block title %}Paso {{ step }} de {{ TOTAL_STEPS }} · MIYJO{% endblock %}
+{% block content %}
+{% set labels = ['Tu hijo', 'Gustos', 'Horarios', 'Zona', 'Presupuesto'] %}
+<ol class="stepper" aria-label="Progreso: paso {{ step }} de {{ TOTAL_STEPS }}">
+  {% for l in labels %}<li class="{{ 'done' if loop.index < step else 'now' if loop.index == step }}" {{ 'aria-current=step' if loop.index == step }}><i></i>{{ l }}</li>{% endfor %}
+</ol>
+{% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+
+<form method="post" action="/cuestionario/{{ step }}" novalidate>
+{% if step == 1 %}
+  <h1>¿Para quién buscamos?</h1>
+  <p class="lead">Solo necesitamos su nombre y edad.</p>
+  <label for="nombre">Nombre de tu hijo o hija</label>
+  <input id="nombre" name="nombre" type="text" maxlength="40" autocomplete="off" value="{{ q.get('nombre', '') }}" required autofocus>
+  <p class="q-title" id="edad-l">¿Cuántos años tiene?</p>
+  <div class="choices chips" role="radiogroup" aria-labelledby="edad-l">
+    {% for a in AGES %}<label class="choice"><input type="radio" name="edad" value="{{ a }}" {{ 'checked' if q.get('edad') == a }}><span>{{ a }}</span></label>{% endfor %}
+  </div>
+
+{% elif step == 2 %}
+  <h1>¿Qué le gusta a {{ q.get('nombre') }}?</h1>
+  <p class="lead">Elige hasta 3. Si no estás seguro, marca la última opción.</p>
+  <div id="intereses" data-max="3" data-any="{{ ANY_INTEREST }}">
+    {% for g, title, items in CATEGORY_GROUPS %}
+      <p class="group-title">{{ title }}</p>
+      <div class="choices cards">
+        {% for key, c in items %}
+          <label class="choice"><input type="checkbox" name="intereses" value="{{ key }}" {{ 'checked' if key in q.get('intereses', []) }}>
+            <span class="em" aria-hidden="true">{{ c.emoji }}</span><span>{{ c.label }}</span></label>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <p class="group-title">¿No sabes cuál elegir?</p>
+    <div class="choices one">
+      <label class="choice any"><input type="checkbox" name="intereses" value="{{ ANY_INTEREST }}" {{ 'checked' if q.get('_any') }}>
+        <span class="em" aria-hidden="true">🤷</span><span>No sé, muéstrame variedad</span></label>
+    </div>
+  </div>
+
+{% elif step == 3 %}
+  <h1>¿Cuándo pueden ir?</h1>
+  <p class="lead">Marca todos los días y horarios en que {{ q.get('nombre') }} podría asistir.</p>
+  <p class="q-title" id="d-l">Días disponibles</p>
+  <div class="choices chips" aria-labelledby="d-l">
+    {% for code, lab in DAYS %}<label class="choice"><input type="checkbox" name="dias" value="{{ code }}" {{ 'checked' if code in q.get('dias', []) }}><span>{{ lab }}</span></label>{% endfor %}
+  </div>
+  <p class="q-title" id="f-l">Horario preferido</p>
+  <div class="choices one" aria-labelledby="f-l">
+    {% for key, (lab, hint) in SLOTS.items() %}
+      <label class="choice"><input type="checkbox" name="franjas" value="{{ key }}" {{ 'checked' if key in q.get('franjas', []) }}>
+        <span>{{ lab }} <span class="muted small">({{ hint }})</span></span></label>
+    {% endfor %}
+  </div>
+
+{% elif step == 4 %}
+  <h1>¿En qué zona prefieres?</h1>
+  <p class="lead">Te mostraremos primero lo más cerca de ti.</p>
+  <div class="choices one" role="radiogroup">
+    {% for z in ZONES + [ZONE_ANY] %}
+      <label class="choice"><input type="radio" name="zona" value="{{ z }}" {{ 'checked' if q.get('zona') == z }}><span>{{ z }}</span></label>
+    {% endfor %}
+  </div>
+
+{% else %}
+  <h1>¿Cuánto quieres invertir?</h1>
+  <p class="lead">Por mes. Es solo una guía: puedes cambiarlo después.</p>
+  <div class="choices one" role="radiogroup">
+    {% for val, lab in BUDGETS %}
+      <label class="choice"><input type="radio" name="presupuesto" value="{{ val }}" {{ 'checked' if q.get('presupuesto') == val }}><span>{{ lab }}</span></label>
+    {% endfor %}
+  </div>
+{% endif %}
+
+  <div class="stepbar row">
+    {% if step > 1 %}<a class="btn sec" href="/cuestionario/{{ step - 1 }}">← Atrás</a>{% endif %}
+    <button class="btn" style="flex:1" type="submit">{{ 'Ver mis recomendaciones ✓' if step == TOTAL_STEPS else 'Siguiente →' }}</button>
+  </div>
+</form>
+{% endblock %}

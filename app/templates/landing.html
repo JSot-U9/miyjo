@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card hero">
+  <h1>Encuentra la actividad ideal para tu hijo en 3 minutos</h1>
+  <p class="lead">Respondes 5 preguntas y te mostramos las mejores opciones, con lugares y entrenadores verificados. Sin buscar en redes ni preguntar por WhatsApp.</p>
+  <a class="btn accent block" href="/entrar">Empezar ahora →</a>
+  <p class="small" style="margin:.7rem 0 0">Solo necesitas tu número de celular. Sin contraseñas.</p>
+</section>
+
+<h2>Cómo funciona</h2>
+<div class="card">
+  <ol class="steps3">
+    <li><b>Cuéntanos de tu hijo.</b> Edad, qué le gusta, cuándo pueden ir, zona y presupuesto.</li>
+    <li><b>Elige entre pocas opciones.</b> Cada una te explica por qué encaja con él o ella.</li>
+    <li><b>Reserva y listo.</b> Te avisamos por WhatsApp cuando tu hijo asiste a su clase.</li>
+  </ol>
+</div>
+
+<h2>Tu tranquilidad, primero</h2>
+<div class="card">
+  <ul class="reasons">
+    <li>Todos los lugares están <b>verificados</b> antes de aparecer.</li>
+    <li>Ves qué se revisó: entrenadores, local y seguridad.</li>
+    <li>Guardamos solo lo necesario, <b>con tu permiso</b>.</li>
+    <li>Pruebas una clase antes de pagar el mes y cancelas cuando quieras.</li>
+  </ul>
+  <a class="btn block" href="/entrar">Quiero ver actividades</a>
+</div>
+<p class="center"><a href="/entrar?rol=provider">Soy academia, escuela o entrenador →</a></p>
+{% endblock %}

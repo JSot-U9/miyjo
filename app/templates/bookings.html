@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Mis reservas · MIYJO{% endblock %}
+{% block content %}
+<h1>Mis reservas</h1>
+{% set ns = namespace(any=false) %}
+{% for c in user.children %}
+  {% set bs = c.bookings|rejectattr('status', 'eq', 'cancelada')|sort(attribute='created_at', reverse=true)|list %}
+  {% if bs %}{% set ns.any = true %}
+    <h2>{{ c.name }}</h2>
+    {% for b in bs %}
+      {% set a = b.activity %}{% set nxt = next_session(a) %}{% set att = att_summary(b) %}
+      <div class="card {{ 'next' if nueva == b.id }}" id="reserva-{{ b.id }}">
+        {% if nueva == b.id %}
+          <div class="alert {{ 'ok' if b.status == 'confirmada' else 'info' }}">
+            {% if b.status == 'confirmada' %}🎉 ¡Listo! La reserva está confirmada. Te avisamos por WhatsApp.
+            {% else %}✅ Reservamos el cupo. <b>Último paso: yapea S/ {{ b.amount }} al {{ a.provider.yape or a.provider.user.phone }}</b> ({{ a.provider.name }}) para confirmarlo.{% endif %}
+          </div>
+        {% endif %}
+        <div class="row between">
+          <div><h3>{{ CATEGORIES[a.category].emoji }} {{ a.name }}</h3><div class="muted small">{{ a.provider.name }} · {{ a.provider.address }}</div></div>
+          <span class="badge {{ 'ok' if b.status == 'confirmada' else 'warn' }}">{{ '✅ Confirmada' if b.status == 'confirmada' else '⏳ Falta pagar' }}</span>
+        </div>
+        <p style="margin-bottom:.3rem">{{ a.days|days }} · {{ a.start }} a {{ a.end }}
+          · <b>{{ 'Clase de prueba' if b.kind == 'prueba' else 'Mensualidad' }}</b></p>
+        {% if b.status == 'pendiente' and nueva != b.id %}
+          <p class="small" style="margin:.2rem 0"><b>Qué hacer:</b> yapea S/ {{ b.amount }} al {{ a.provider.yape or a.provider.user.phone }}. El proveedor lo confirma y te avisamos.</p>
+        {% endif %}
+        {% if b.status == 'confirmada' and nxt %}<p style="margin:.2rem 0">📅 Próxima clase: <b>{{ nxt[1] }}, {{ a.start }}</b></p>{% endif %}
+        {% if att[1] %}<p class="small muted" style="margin:.2rem 0">Asistió a {{ att[0] }} de {{ att[1] }} clases registradas.</p>{% endif %}
+        <div class="row" style="margin-top:.7rem">
+          {% if b.kind == 'prueba' %}<a class="btn sm" href="/actividad/{{ a.id }}?hijo={{ c.id }}">Inscribir por el mes</a>{% endif %}
+          <form method="post" action="/reservas/{{ b.id }}/cancelar" onsubmit="return confirm('¿Seguro que quieres cancelar esta reserva?')" style="margin:0">
+            <button class="btn danger sm" type="submit">Cancelar</button></form>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+{% if not ns.any %}
+  <div class="card"><p>Aún no tienes reservas. Mira las actividades que elegimos para tu hijo.</p>
+    {% if user.children %}<a class="btn" href="/recomendaciones/{{ user.children[0].id }}">⭐ Ver actividades</a>{% endif %}</div>
+{% endif %}
+{% endblock %}

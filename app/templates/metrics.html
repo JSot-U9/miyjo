@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Métricas · MIYJO{% endblock %}
+{% block mainclass %}wide{% endblock %}
+{% macro kpi(val, label, suffix='') %}<div class="kpi"><b>{{ (val ~ suffix) if val is not none else '—' }}</b><span>{{ label }}</span></div>{% endmacro %}
+{% block content %}
+<div class="row between">
+  <h1>Panel para patrocinadores</h1>
+  <div class="row">
+    {% if m.solo_reales %}<a class="btn sec sm" href="/metricas">Incluir datos demo</a>{% else %}<a class="btn sec sm" href="/metricas?reales=1">Solo datos reales</a>{% endif %}
+    <a class="btn sec sm" href="/metricas.csv{{ '?reales=1' if m.solo_reales }}">Descargar CSV</a>
+  </div>
+</div>
+{% if m.solo_reales %}
+  <div class="alert ok">Mostrando <b>solo datos reales</b> del piloto (se excluyen las familias y proveedores de demostración).</div>
+{% elif m.has_demo %}
+  <div class="alert info">Estas cifras <b>incluyen datos de demostración ficticios</b>. Usa «Solo datos reales» para ver únicamente lo medido con familias y proveedores del piloto.</div>
+{% endif %}
+
+<h2>Resultados medidos</h2>
+<div class="kpis">
+  {{ kpi(m.families, 'familias registradas') }}
+  {{ kpi(m.bookings, 'reservas (' ~ m.confirmed ~ ' confirmadas)') }}
+  {{ kpi(m.repeat_rate, 'familias que repiten (2+ reservas)', '%') }}
+  {{ kpi(m.trial_to_monthly, 'pasan de prueba a mensualidad', '%') }}
+  {{ kpi(m.minutes_per_child_28d, 'min. de actividad física por niño (28 días)') }}
+  {{ kpi(m.provider_activity_rate, 'proveedores activos en 14 días (' ~ m.providers_active ~ ' de ' ~ m.providers ~ ')', '%') }}
+  {{ kpi(m.median_minutes_first_booking, 'minutos hasta la primera reserva (mediana)') }}
+  {{ kpi(m.attendance_rate, 'asistencia a clases', '%') }}
+</div>
+
+<div class="grid2">
+  <div class="card funnel">
+    <h3>Embudo de familias</h3>
+    {% set top = m.funnel[0][1] or 1 %}
+    {% for name, n in m.funnel %}
+      <div class="bar"><span class="l">{{ name }}</span><span class="t"><i style="width: {{ (n * 100 / top)|round|int }}%"></i></span><span class="v">{{ n }}</span></div>
+    {% endfor %}
+    <p class="hint">Cuestionario completado: {{ m.q_completion ~ '%' if m.q_completion is not none else '—' }} de quienes lo empiezan.</p>
+  </div>
+  <div class="card">
+    <h3>Reservas por semana</h3>
+    <div class="weeks">
+      {% for label, n in m.weeks %}<div><b>{{ n }}</b><i style="height: {{ (n * 100 / m.weeks_max)|round|int }}%"></i>{{ label }}</div>{% endfor %}
+    </div>
+  </div>
+</div>
+
+<h2>Ingresos generados</h2>
+<div class="kpis">
+  {{ kpi(m.gmv, 'S/ movidos en reservas confirmadas') }}
+  {{ kpi(m.revenue, 'S/ de ingreso para MIYJO (comisión ' ~ (m.comision * 100)|round|int ~ '%)') }}
+  {{ kpi(m.revenue28, 'S/ de ingreso en los últimos 28 días') }}
+  {{ kpi(m.arpu, 'S/ de ticket mensual por familia') }}
+</div>
+
+<h2>Proyección del modelo de negocio</h2>
+<div class="alert info"><b>Supuestos editables, no son resultados medidos.</b> Parten de las cifras reales de arriba; cambia los valores para mostrar escenarios.</div>
+<form id="calc" class="card" onsubmit="return false">
+  <div class="grid2">
+    <div><label for="c-fam">Familias con mensualidad</label><input id="c-fam" type="number" min="0" value="{{ m.fam_monthly or 100 }}"></div>
+    <div><label for="c-ticket">Ticket mensual por familia (S/)</label><input id="c-ticket" type="number" min="0" value="{{ m.arpu|round|int or 90 }}"></div>
+    <div><label for="c-com">Comisión por reserva (%)</label><input id="c-com" type="number" min="0" max="100" value="{{ (m.comision * 100)|round|int }}"></div>
+    <div><label for="c-churn">Abandono mensual de familias (%)</label><input id="c-churn" type="number" min="1" max="100" value="8"></div>
+    <div><label for="c-cac">Costo de conseguir una familia (S/)</label><input id="c-cac" type="number" min="0" value="20"></div>
+    <div><label for="c-prov">Proveedores con suscripción</label><input id="c-prov" type="number" min="0" value="{{ m.providers }}"></div>
+    <div><label for="c-sub">Suscripción mensual del proveedor (S/)</label><input id="c-sub" type="number" min="0" value="30"></div>
+    <div><label for="c-fixed">Costos fijos mensuales (S/)</label><input id="c-fixed" type="number" min="0" value="1500"></div>
+  </div>
+  <div class="kpis" style="margin-top:1.2rem">
+    <div class="kpi"><b id="o-mrr">—</b><span>ingreso mensual de MIYJO</span></div>
+    <div class="kpi"><b id="o-arr">—</b><span>ingreso anual proyectado</span></div>
+    <div class="kpi"><b id="o-ltv">—</b><span>valor de una familia en toda su vida (LTV)</span></div>
+    <div class="kpi"><b id="o-ratio">—</b><span>LTV / costo de adquisición (meta: 3x o más)</span></div>
+    <div class="kpi"><b id="o-pay">—</b><span>meses para recuperar el costo de adquirir una familia</span></div>
+    <div class="kpi"><b id="o-be">—</b><span>familias para cubrir los costos fijos</span></div>
+    <div class="kpi"><b id="o-life">—</b><span>permanencia promedio de una familia</span></div>
+  </div>
+</form>
+{% endblock %}
