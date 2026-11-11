@@ -3,12 +3,13 @@
 {% block title %}Paso {{ step }} de {{ TOTAL_STEPS }} · MIYJO{% endblock %}
 {% block content %}
 {% set labels = ['Tu hijo', 'Gustos', 'Horarios', 'Zona', 'Presupuesto'] %}
+<div class="question-shell">
 <ol class="stepper" aria-label="Progreso: paso {{ step }} de {{ TOTAL_STEPS }}">
   {% for l in labels %}<li class="{{ 'done' if loop.index < step else 'now' if loop.index == step }}" {{ 'aria-current=step' if loop.index == step }}><i></i>{{ l }}</li>{% endfor %}
 </ol>
 {% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
 
-<form method="post" action="/cuestionario/{{ step }}" novalidate>
+<form method="post" action="/cuestionario/{{ step }}" class="question-form" novalidate>
 {% if step == 1 %}
   <h1>¿Para quién buscamos?</h1>
   <p class="lead">Solo necesitamos su nombre y edad.</p>
@@ -78,4 +79,5 @@
     <button class="btn" style="flex:1" type="submit">{{ 'Ver mis recomendaciones ✓' if step == TOTAL_STEPS else 'Siguiente →' }}</button>
   </div>
 </form>
+</div>
 {% endblock %}

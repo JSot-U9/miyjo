@@ -3,7 +3,7 @@
 {% block mainclass %}wide{% endblock %}
 {% block content %}
 <h1>{{ prov.name }}</h1>
-<p class="muted">{{ prov.zone }} · <span class="badge ok">✔ Verificado</span></p>
+<p class="muted">{{ prov.zone }} · <span class="badge">{% if DEMO %}Cuenta de demostración{% else %}Perfil de proveedor{% endif %}</span></p>
 
 <div class="kpis">
   <div class="kpi"><b>{{ active_students }}</b><span>alumnos con cupo confirmado</span></div>

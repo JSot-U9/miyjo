@@ -3,9 +3,9 @@
 {% block content %}
 {% set cat = CATEGORIES[act.category] %}
 {% set nxt = next_session(act) %}
-<a class="back" href="/recomendaciones/{{ child.id }}">← Volver a las opciones</a>
+<a class="back" href="/recomendaciones/{{ child.id }}">← Volver a las recomendaciones</a>
 <div class="row" style="flex-wrap:nowrap"><span style="font-size:2.8rem" aria-hidden="true">{{ cat.emoji }}</span>
-  <div><h1 style="margin:0">{{ act.name }}</h1><div class="muted">{{ act.provider.name }} · <span class="badge ok">✔ Verificado</span></div></div></div>
+  <div><h1 style="margin:0">{{ act.name }}</h1><div class="muted">{{ act.provider.name }} · <span class="badge">Información del proveedor</span></div></div></div>
 
 <div class="facts">
   <div class="fact"><small>📅 Cuándo</small><b>{{ act.days|days }}<br>{{ act.start }} a {{ act.end }}</b></div>
@@ -15,7 +15,7 @@
 </div>
 {% if nxt %}<p>📅 Próxima clase: <b>{{ nxt[1] }}, {{ act.start }}</b></p>{% endif %}
 
-<div class="card next" id="reservar">
+<div class="booking-panel" id="reservar">
   <h2 style="margin-top:0">Reservar para {{ child.name }}</h2>
   {% if has_monthly %}
     <div class="alert ok">✅ {{ child.name }} ya está inscrito en esta actividad. <a href="/reservas">Ver mis reservas</a></div>
@@ -45,10 +45,11 @@
   {% endif %}
 </div>
 
-<div class="card">
-  <h2 style="margin-top:0">🛡️ Seguridad y confianza</h2>
+<div class="info-panel">
+  <h2 style="margin-top:0">Información y condiciones</h2>
   <p>{{ act.safety }}</p>
-  <p class="small muted" style="margin-bottom:.2rem">Lo que verificamos de {{ act.provider.name }}:</p>
+  <p class="small muted" style="margin-bottom:.2rem">Información de seguridad registrada para {{ act.provider.name }}:</p>
+  {% if DEMO %}<div class="alert info">Ficha de demostración: estos datos no constituyen una verificación real del proveedor.</div>{% else %}<div class="alert info">Consulta con MIYJO el estado de revisión documental de este proveedor antes de asistir.</div>{% endif %}
   <ul class="reasons">{% for c in act.provider.checks %}<li>{{ c }}</li>{% endfor %}</ul>
   <p class="small muted">{{ act.provider.description }}</p>
 </div>

@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#07504a">
+  <meta name="theme-color" content="#123f3a">
+  <meta name="description" content="MIYJO ayuda a las familias de Cusco a encontrar y organizar actividades para sus hijos.">
   <title>{% block title %}MIYJO · Actividades seguras para tus hijos{% endblock %}</title>
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/static/icons/icon-192.png">
@@ -17,10 +18,10 @@
 <body class="{{ 'has-tabs' if tabs }}">
 <a class="skip" href="#contenido">Saltar al contenido</a>
 <header class="top {{ 'wide-top' if user and user.role != 'parent' }}"><div class="in">
-  <a class="logo" href="/">MI<span>Y</span>JO</a>
+  <a class="logo" href="/" aria-label="MIYJO, inicio"><span class="logo-mark">m</span><span class="logo-word">MIYJO<small>CRECER EN MOVIMIENTO</small></span></a>
   <nav aria-label="Principal">
     {% if user and user.role == "provider" %}
-      <a href="/proveedor" {{ 'aria-current=page' if path.startswith('/proveedor') }}>Mi panel</a>
+      <a href="/proveedor" {{ 'aria-current=page' if path.startswith('/proveedor') }}>Panel</a>
     {% elif user and user.role == "admin" %}
       <a href="/metricas" {{ 'aria-current=page' if path.startswith('/metricas') }}>Métricas</a>
     {% endif %}
@@ -30,17 +31,18 @@
   </nav>
 </div></header>
 <main id="contenido" class="{% block mainclass %}{% endblock %}">
+  {% if DEMO and user and user.role in ['parent', 'provider'] %}<div class="demo-ribbon"><span class="demo-dot"></span> Modo demostración · Los proveedores y actividades pueden ser ficticios</div>{% endif %}
   {% for f in flash %}<div class="alert {{ f.kind }}" role="status">{{ f.msg }}</div>{% endfor %}
   {% block content %}{% endblock %}
 </main>
 {% if tabs %}
 <nav class="tabbar" aria-label="Secciones"><div class="in">
-  <a href="/inicio" {{ 'aria-current=page' if path == '/inicio' }}><span class="ic" aria-hidden="true">🏠</span>Inicio</a>
+  <a href="/inicio" {{ 'aria-current=page' if path == '/inicio' }}><span class="ic" aria-hidden="true">⌂</span><span>Inicio</span></a>
   <a href="{{ '/recomendaciones/' ~ user.children[0].id if user.children else '/cuestionario/1' }}"
-     {{ 'aria-current=page' if path.startswith('/recomendaciones') or path.startswith('/actividad') }}><span class="ic" aria-hidden="true">⭐</span>Sugeridas</a>
-  <a href="/explorar" {{ 'aria-current=page' if path.startswith('/explorar') }}><span class="ic" aria-hidden="true">🔎</span>Explorar</a>
-  <a href="/reservas" {{ 'aria-current=page' if path.startswith('/reservas') }}><span class="ic" aria-hidden="true">📅</span>Reservas</a>
-  <a href="https://wa.me/{{ SOPORTE }}?text=Hola%2C%20necesito%20ayuda%20con%20MIYJO" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">💬</span>Ayuda</a>
+     {{ 'aria-current=page' if path.startswith('/recomendaciones') or path.startswith('/actividad') }}><span class="ic" aria-hidden="true">✳</span><span>Para ti</span></a>
+  <a href="/explorar" {{ 'aria-current=page' if path.startswith('/explorar') }}><span class="ic" aria-hidden="true">⌕</span><span>Explorar</span></a>
+  <a href="/reservas" {{ 'aria-current=page' if path.startswith('/reservas') }}><span class="ic" aria-hidden="true">▦</span><span>Agenda</span></a>
+  <a href="https://wa.me/{{ SOPORTE }}?text=Hola%2C%20necesito%20ayuda%20con%20MIYJO" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">♡</span><span>Ayuda</span></a>
 </div></nav>
 {% elif not user or user.role == "parent" %}
 <p class="center small" style="padding-bottom:2rem"><a href="https://wa.me/{{ SOPORTE }}?text=Hola%2C%20necesito%20ayuda%20con%20MIYJO" target="_blank" rel="noopener">💬 ¿Necesitas ayuda? Escríbenos por WhatsApp</a></p>

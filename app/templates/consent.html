@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Tu consentimiento · MIYJO{% endblock %}
 {% block content %}
-<h1>Antes de empezar</h1>
-<p class="muted">Por ley, necesitamos tu permiso para guardar datos de tu hijo. Lo explicamos en palabras simples.</p>
+<section class="page-intro"><span class="eyebrow">PRIVACIDAD Y CONFIANZA</span><h1>Tu confianza es importante</h1><p class="lead">Antes de comenzar, queremos explicarte qué información utilizamos y cómo cuidamos los datos de tu familia.</p></section>
 {% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
-<form method="post" action="/consentimiento" class="card" novalidate>
+<form method="post" action="/consentimiento" class="form-panel" novalidate>
   <h3>Qué guardamos y para qué</h3>
   <ul class="reasons">
     <li>El <b>nombre y la edad</b> de tu hijo, sus gustos y tu disponibilidad: solo para recomendarle actividades.</li>

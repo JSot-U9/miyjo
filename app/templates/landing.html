@@ -1,30 +1,27 @@
 {% extends "base.html" %}
+{% block title %}MIYJO · Actividades que les hacen bien{% endblock %}
 {% block content %}
-<section class="card hero">
-  <h1>Encuentra la actividad ideal para tu hijo en 3 minutos</h1>
-  <p class="lead">Respondes 5 preguntas y te mostramos las mejores opciones, con lugares y entrenadores verificados. Sin buscar en redes ni preguntar por WhatsApp.</p>
-  <a class="btn accent block" href="/entrar">Empezar ahora →</a>
-  <p class="small" style="margin:.7rem 0 0">Solo necesitas tu número de celular. Sin contraseñas.</p>
+<section class="landing-hero">
+  <div class="hero-copy">
+    <span class="eyebrow"><span class="eyebrow-dot"></span> PARA FAMILIAS DE CUSCO</span>
+    <h1>Más movimiento.<br><em>Más momentos felices.</em></h1>
+    <p class="lead">Encontrar una actividad para tus hijos no debería convertirse en otra tarea pendiente. Te ayudamos a descubrir opciones que encajan con sus gustos, tus horarios y tu familia.</p>
+    <div class="hero-actions"><a class="btn accent" href="/entrar">Encontrar una actividad <span aria-hidden="true">→</span></a><span class="micro-note">Te toma unos 3 minutos · Sin compromiso</span></div>
+    <div class="trust-inline"><span>✓ Opciones según su edad</span><span>✓ Horarios y precios claros</span></div>
+  </div>
+  <div class="hero-art" aria-label="Ilustración de niños jugando y haciendo deporte">
+    <div class="art-sun"></div><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+    <div class="art-card art-card-top"><span>✦</span><b>Descubre lo que le gusta</b><small>Actividades para cada personalidad</small></div>
+    <div class="art-figure figure-one">⚽</div><div class="art-figure figure-two">🏃</div><div class="art-figure figure-three">🏀</div>
+    <div class="art-card art-card-bottom"><span class="art-check">✓</span><div><b>Tu familia, a su ritmo</b><small>Menos búsqueda. Más tiempo juntos.</small></div></div>
+    <span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✦</span>
+  </div>
 </section>
-
-<h2>Cómo funciona</h2>
-<div class="card">
-  <ol class="steps3">
-    <li><b>Cuéntanos de tu hijo.</b> Edad, qué le gusta, cuándo pueden ir, zona y presupuesto.</li>
-    <li><b>Elige entre pocas opciones.</b> Cada una te explica por qué encaja con él o ella.</li>
-    <li><b>Reserva y listo.</b> Te avisamos por WhatsApp cuando tu hijo asiste a su clase.</li>
-  </ol>
-</div>
-
-<h2>Tu tranquilidad, primero</h2>
-<div class="card">
-  <ul class="reasons">
-    <li>Todos los lugares están <b>verificados</b> antes de aparecer.</li>
-    <li>Ves qué se revisó: entrenadores, local y seguridad.</li>
-    <li>Guardamos solo lo necesario, <b>con tu permiso</b>.</li>
-    <li>Pruebas una clase antes de pagar el mes y cancelas cuando quieras.</li>
-  </ul>
-  <a class="btn block" href="/entrar">Quiero ver actividades</a>
-</div>
-<p class="center"><a href="/entrar?rol=provider">Soy academia, escuela o entrenador →</a></p>
+<section class="value-strip" aria-label="Beneficios de MIYJO"><div><span class="value-icon">⌕</span><b>Opciones a su medida</b><small>Según sus gustos y edad</small></div><div><span class="value-icon">♡</span><b>Decisiones informadas</b><small>Detalles claros para ti</small></div><div><span class="value-icon">◷</span><b>Todo más sencillo</b><small>Reserva y organiza en un lugar</small></div></section>
+<section class="section-block">
+  <div class="section-heading"><span class="eyebrow">ASÍ DE FÁCIL</span><h2>Un buen comienzo en tres pasos</h2><p>Nos cuentas un poco y nosotros te ayudamos a encontrar por dónde empezar.</p></div>
+  <div class="how-grid"><article class="how-card"><span class="how-number">01</span><span class="how-emoji">🧒</span><h3>Conocemos sus gustos</h3><p>Edad, deportes que le llaman la atención, horarios y zona.</p></article><article class="how-card"><span class="how-number">02</span><span class="how-emoji">✳</span><h3>Te mostramos opciones</h3><p>Una selección breve con horarios, ubicación, precios y detalles.</p></article><article class="how-card"><span class="how-number">03</span><span class="how-emoji">🤸</span><h3>Da el primer paso</h3><p>Consulta, reserva una clase de prueba y organiza su actividad.</p></article></div>
+</section>
+<section class="closing-cta"><div><span class="eyebrow">EL MOVIMIENTO TAMBIÉN ES CRECER</span><h2>Su próxima actividad favorita puede estar más cerca de lo que imaginas.</h2></div><a class="btn accent" href="/entrar">Empezar ahora →</a></section>
+<p class="center small provider-link"><a href="/entrar?rol=provider">¿Tienes una academia o eres entrenador? Conoce MIYJO para proveedores →</a></p>
 {% endblock %}

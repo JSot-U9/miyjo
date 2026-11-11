@@ -1,25 +1,8 @@
-{# Tarjeta de actividad. Variables: r (Reco), child, best (bool) #}
 {% set a = r.activity %}{% set nxt = next_session(a) %}
-<article class="card reco {{ 'best' if best }}">
-  {% if best %}<p style="margin:0 0 .5rem"><span class="badge star">⭐ Mejor opción para {{ child.name }}</span></p>{% endif %}
-  <div class="top-row">
-    <div class="big-em" aria-hidden="true">{{ CATEGORIES[a.category].emoji }}</div>
-    <div>
-      <h3 style="font-size:1.2rem">{{ a.name }}</h3>
-      <div class="muted small">{{ a.provider.name }}</div>
-      <span class="badge ok" style="margin-top:.3rem">✔ Verificado</span>
-    </div>
-    <div class="match" aria-label="Encaja {{ r.score }} por ciento">{{ r.score }}%<small>encaja</small></div>
-  </div>
-  <div class="facts">
-    <div class="fact"><small>📅 Cuándo</small><b>{{ a.days|days }} · {{ a.start }}</b></div>
-    <div class="fact"><small>📍 Dónde</small><b>{{ a.provider.zone }}</b></div>
-    <div class="fact"><small>💰 Precio</small><b>S/ {{ a.price_month }} al mes</b></div>
-  </div>
-  <ul class="reasons">{% for reason in r.reasons[:4] %}<li>{{ reason }}</li>{% endfor %}</ul>
-  <div class="row between">
-    <div>{% if a.trial_price == 0 %}<span class="badge accent">🎁 Clase de prueba gratis</span>{% endif %}
-      {% if r.spots_left <= 3 %}<span class="badge warn">Quedan {{ r.spots_left }} cupos</span>{% endif %}</div>
-    <a class="btn" href="/actividad/{{ a.id }}?hijo={{ child.id }}">Ver detalle y reservar →</a>
-  </div>
+<article class="card reco activity-card {{ 'activity-featured' if best }}">
+  {% if best %}<div class="recommend-tag"><span>✳</span> Mejor opción para {{ child.name }}</div>{% endif %}
+  <div class="activity-card-head"><div class="activity-emoji">{{ CATEGORIES[a.category].emoji }}</div><div class="activity-title"><h3>{{ a.name }}</h3><p>{{ a.provider.name }}</p><span class="provider-note">{% if DEMO %}Verificado · registro ficticio de demostración{% else %}Información del proveedor{% endif %}</span></div><div class="match"><b>{{ r.score }}%</b><small>compatibilidad</small></div></div>
+  <div class="activity-details"><div><span>CUÁNDO</span><b>{{ a.days|days }}</b><small>{{ a.start }} h</small></div><div><span>DÓNDE</span><b>{{ a.provider.zone }}</b><small>{{ a.provider.address }}</small></div><div><span>INVERSIÓN</span><b>S/ {{ a.price_month }}</b><small>por mes</small></div></div>
+  <div class="fit-reasons"><b>Le gusta y podría encajar por esto</b><ul class="reasons">{% for reason in r.reasons[:3] %}<li>{{ reason }}</li>{% endfor %}</ul></div>
+  <div class="activity-card-foot"><div class="activity-pills">{% if a.trial_price == 0 %}<span class="badge accent">Clase de prueba gratis</span>{% elif a.trial_price %}<span class="badge">Prueba: S/ {{ a.trial_price }}</span>{% endif %}{% if r.spots_left <= 3 %}<span class="badge warn">{{ r.spots_left }} cupos</span>{% endif %}</div><a class="btn" href="/actividad/{{ a.id }}?hijo={{ child.id }}">Conocer actividad <span>→</span></a></div>
 </article>

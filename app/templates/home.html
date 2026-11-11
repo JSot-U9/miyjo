@@ -1,40 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Inicio · MIYJO{% endblock %}
 {% block content %}
-<h1>Hola, {{ user.name.split()[0] if user.name else 'bienvenido/a' }} 👋</h1>
+<section class="welcome-row"><div><span class="eyebrow">TU ESPACIO FAMILIAR</span><h1>¡Hola, {{ user.name.split()[0] if user.name else 'bienvenido/a' }}! <span class="wave">✦</span></h1><p class="lead">Hagamos espacio para más movimiento esta semana.</p></div><div class="welcome-mark" aria-hidden="true">☀</div></section>
+{% if not user.children %}<div class="empty-state"><span class="empty-illustration">✳</span><h2>Empecemos por conocer a tu familia</h2><p>Cuéntanos qué le gusta y encontraremos actividades que podrían entusiasmarle.</p><a class="btn" href="/cuestionario/1">Buscar su primera actividad →</a></div>{% endif %}
 {% for c in user.children %}
   {% set active = c.bookings|selectattr('status', 'ne', 'cancelada')|list %}
   {% set confirmed = active|selectattr('status', 'eq', 'confirmada')|list %}
   {% set pending = active|selectattr('status', 'eq', 'pendiente')|list %}
-  <div class="card {{ 'next' if loop.first }}">
-    <div class="row between">
-      <div><h2 style="margin:0">{{ c.name }}</h2>
-        <span class="muted small">{{ c.age }} años · {% if c.interests %}{% for i in c.interests %}{{ CATEGORIES[i].label }}{{ ', ' if not loop.last }}{% endfor %}{% else %}Variedad{% endif %}</span></div>
-      <span class="badge {{ 'ok' if confirmed else 'accent' }}">{{ active|length }} reserva{{ '' if active|length == 1 else 's' }}</span>
-    </div>
-    {% if pending %}
-      <div class="alert info" style="margin-top:.8rem">⏳ Te falta pagar {{ pending|length }} reserva{{ '' if pending|length == 1 else 's' }} para confirmar{{ 'la' if pending|length == 1 else 'las' }}.</div>
-    {% endif %}
+  <section class="child-panel">
+    <div class="child-heading"><div class="child-avatar">{{ c.name[:1]|upper }}</div><div class="child-meta"><span class="eyebrow">PERFIL DE ACTIVIDAD</span><h2>{{ c.name }}</h2><span>{{ c.age }} años · {% if c.interests %}{% for i in c.interests %}{{ CATEGORIES[i].label }}{{ ', ' if not loop.last }}{% endfor %}{% else %}Explorando posibilidades{% endif %}</span></div><a class="text-link" href="/recomendaciones/{{ c.id }}">Ver opciones <span>→</span></a></div>
+    {% if pending %}<div class="status-callout status-pending"><span>◷</span><div><b>Tienes {{ pending|length }} reserva{{ '' if pending|length == 1 else 's' }} pendiente{{ '' if pending|length == 1 else 's' }}</b><small>Revisa el paso de pago para confirmar tu cupo.</small></div><a href="/reservas">Revisar</a></div>{% endif %}
     {% set nx = namespace(item=None) %}
     {% for b in confirmed %}{% set n = next_session(b.activity) %}{% if n and (nx.item is none or n[0] < nx.item[0][0]) %}{% set nx.item = (n, b) %}{% endif %}{% endfor %}
     {% if nx.item %}
-      <p style="margin:.8rem 0 .2rem">📅 <b>Próxima clase:</b> {{ nx.item[0][1] }}, {{ nx.item[1].activity.start }}<br>
-        <span class="muted">{{ nx.item[1].activity.name }} · {{ nx.item[1].activity.provider.name }}</span></p>
+      <div class="next-activity"><div class="next-label"><span class="eyebrow">TU PRÓXIMA ACTIVIDAD</span><span class="badge ok">Reserva confirmada</span></div><div class="next-body"><div class="next-date"><b>{{ nx.item[0][0].strftime('%d') }}</b><span>{{ nx.item[0][0].strftime('%b') }}</span></div><div class="next-info"><h3>{{ nx.item[1].activity.name }}</h3><p>{{ nx.item[0][1] }} · {{ nx.item[1].activity.start }} · {{ nx.item[1].activity.provider.zone }}</p><small>{{ nx.item[1].activity.provider.name }}</small></div><span class="next-symbol">↗</span></div><a class="text-link" href="/reservas">Ver detalles de la reserva →</a></div>
+    {% elif not pending %}
+      <div class="discovery-card"><div class="discovery-icon">✳</div><div><b>Hay nuevas experiencias por descubrir</b><p>Encuentra una actividad que encaje con sus intereses y tus horarios.</p><a class="text-link" href="/recomendaciones/{{ c.id }}">Ver recomendaciones →</a></div></div>
     {% endif %}
-    <div class="row" style="margin-top:.9rem">
-      <a class="btn" href="/recomendaciones/{{ c.id }}">⭐ Ver actividades para {{ c.name }}</a>
-      {% if active %}<a class="btn sec" href="/reservas">Mis reservas</a>{% endif %}
-    </div>
-  </div>
+    <div class="child-actions"><a class="btn" href="/recomendaciones/{{ c.id }}">✳ Actividades para {{ c.name }}</a><a class="btn sec" href="/reservas">▦ Mis reservas{% if active %} ({{ active|length }}){% endif %}</a></div>
+  </section>
 {% endfor %}
-<div class="card">
-  <h3>¿Quieres ver todo lo que hay?</h3>
-  <p class="muted">Explora todas las actividades con filtros por deporte, zona y día.</p>
-  <a class="btn sec" href="/explorar">🔎 Explorar todas las actividades</a>
-</div>
-<div class="card">
-  <h3>¿Tienes otro hijo o hija?</h3>
-  <p class="muted">Responde las 5 preguntas de nuevo para recibir recomendaciones para él o ella.</p>
-  <a class="btn sec" href="/cuestionario/1">＋ Agregar otro hijo</a>
-</div>
+<section class="home-shortcuts"><a href="/explorar"><span>⌕</span><div><b>Explorar actividades</b><small>Deportes, zonas y horarios</small></div><i>→</i></a><a href="/cuestionario/1"><span>＋</span><div><b>Agregar otro hijo o hija</b><small>Personaliza nuevas recomendaciones</small></div><i>→</i></a></section>
 {% endblock %}

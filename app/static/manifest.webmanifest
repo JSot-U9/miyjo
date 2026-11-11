@@ -1,13 +1,13 @@
 {
   "name": "MIYJO",
   "short_name": "MIYJO",
-  "description": "Actividades físicas seguras para tus hijos, sin perder tiempo.",
+  "description": "Descubre y organiza actividades para que tus hijos crezcan en movimiento.",
   "lang": "es-PE",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#fffaf2",
-  "theme_color": "#0b6b63",
+  "background_color": "#f7f7f2",
+  "theme_color": "#174d43",
   "icons": [
     {"src": "/static/icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
     {"src": "/static/icons/icon-512.png", "sizes": "512x512", "type": "image/png"},

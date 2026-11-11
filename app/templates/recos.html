@@ -7,9 +7,9 @@
     <select id="sel" style="max-width:220px">{% for c in user.children %}<option value="/recomendaciones/{{ c.id }}" {{ 'selected' if c.id == child.id }}>{{ c.name }} ({{ c.age }} años)</option>{% endfor %}</select>
   </form>
 {% endif %}
+<section class="page-intro"><span class="eyebrow">SELECCIÓN PARA {{ child.name|upper }}</span><h1>Actividades que podrían encantarle</h1><p class="lead">Elegimos opciones considerando sus gustos, edad, horarios y zona. Revisa los detalles y elige con calma.</p></section>
 {% if results %}
-  <h1>{{ results|length }} opciones ideales para {{ child.name }}</h1>
-  <p class="lead">Elegidas según lo que nos contaste. Todas con lugares verificados.</p>
+  <div class="results-summary"><span><b>{{ results|length }}</b> recomendaciones principales</span><a class="text-link" href="/explorar?hijo={{ child.id }}">Ver todo el catálogo →</a></div>
   {% for r in results %}{% set best = loop.first %}{% include "_card.html" %}{% endfor %}
 
   {% if more %}
@@ -27,8 +27,8 @@
   </details>
   {% endif %}
 
-  <div class="card" style="margin-top:1rem">
-    <h3>¿Ninguna te convence?</h3>
+  <div class="help-panel" style="margin-top:1rem">
+    <h3>¿Todavía no encuentras la indicada?</h3>
     <div class="row">
       <a class="btn sec sm" href="/cuestionario/1">Cambiar mis respuestas</a>
       <a class="btn wa sm" href="https://wa.me/{{ SOPORTE }}?text=Necesito%20ayuda%20para%20elegir%20actividad%20para%20{{ child.name|urlencode }}" target="_blank" rel="noopener">💬 Que me ayuden a elegir</a>

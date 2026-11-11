@@ -23,6 +23,25 @@ Probar desde el celular (misma red Wi-Fi): `http://IP-DE-TU-PC:8000` y "Añadir 
   indicador de pasos con nombre, «Mejor opción» destacada, botón **A+** para cambiar el tamaño de letra.
 - **Si ya tenías datos de la versión anterior**, el catálogo nuevo se carga con: `python -m app.seed --reset`.
 
+
+## Rediseño de experiencia MIYJO 2.0
+
+Esta versión incorpora una renovación visual y de navegación sin reemplazar FastAPI, SQLAlchemy, Jinja2 ni las rutas existentes:
+
+- Nueva identidad visual: verde profundo, tonos cálidos, superficies suaves y marca MIYJO.
+- Landing page orientada a familias de Cusco, con propuesta de valor y explicación del servicio.
+- Inicio familiar reorganizado: perfil por hijo, próximas actividades, reservas pendientes y accesos rápidos.
+- Recomendaciones presentadas como tarjetas comparables, con compatibilidad, razones, horarios, zona y precio.
+- Catálogo con filtros más claros y filas de actividad adaptadas a móvil.
+- Renovación de acceso, consentimiento, cuestionario, detalle de actividad y agenda.
+- Navegación inferior simplificada: Inicio, Para ti, Explorar, Agenda y Ayuda.
+- Ajustes de responsive, accesibilidad, foco visible, contraste y áreas táctiles.
+- Avisos explícitos en modo demo para no confundir los datos ficticios con proveedores realmente verificados.
+
+La lógica de reservas, confirmación de pagos, asistencia, recomendador y métricas se conserva. Se ejecutó la suite automatizada: **58 pruebas aprobadas**.
+
+**Importante para el piloto:** el rediseño no convierte los datos de ejemplo en proveedores verificados. Antes de abrir el servicio a familias reales, sustituye el catálogo de demostración, completa la revisión documental de cada proveedor y conecta el canal real de OTP/notificaciones.
+
 ## Qué incluye (alcance del prototipo)
 | Flujo | Dónde |
 |---|---|

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Mis reservas · MIYJO{% endblock %}
 {% block content %}
-<h1>Mis reservas</h1>
+<section class="page-intro"><span class="eyebrow">TU AGENDA FAMILIAR</span><h1>Reservas y actividades</h1><p class="lead">Consulta tus cupos, próximos horarios y los pasos que faltan para confirmar.</p></section>
 {% set ns = namespace(any=false) %}
 {% for c in user.children %}
   {% set bs = c.bookings|rejectattr('status', 'eq', 'cancelada')|sort(attribute='created_at', reverse=true)|list %}
